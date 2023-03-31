@@ -61,7 +61,7 @@ color_image = cv2.convertScaleAbs(color_image, alpha=a, beta=b)
 """draw a bounding box around object to be tracked then hit enter"""
 bbox = cv2.selectROI(color_image, False)
 
-tracker = cv2.TrackerKCF_create()
+tracker = cv2.TrackerMIL_create()
 
 ok = tracker.init(color_image, bbox)
 depthList = []
