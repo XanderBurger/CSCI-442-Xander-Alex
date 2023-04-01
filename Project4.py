@@ -146,22 +146,25 @@ try:
 
         motorStrength = 0
         BODY = 0
+        body = 6000
         # this might need to be adjusted to a larger threshold
         if finDepth > 1.1:
-            body = 4000
+            body = 6500
             if (body > 7900):
                 body = 7900
-            tango.setTarget(BODY, body)
             print("waist right")
             print("forwards")
-
         elif finDepth < 0.9:
-            body = 2000
+            body = 5500
             if (body < 1510):
                 body = 1510
-            tango.setTarget(BODY, body)
             print('waist left')
             print("backwards")
+
+        if not ok:
+            body = 6000
+
+        tango.setTarget(BODY, body)
 
         print(ok)
         print(finDepth)
