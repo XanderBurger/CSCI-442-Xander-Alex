@@ -138,7 +138,7 @@ try:
 
         """Setting a starting depth to compare to"""
         # this might need to be ran for a few frames so we get a more accurate starting depth
-        if not startingDepth:
+        if not startingDepth and len(depthList) > 14:
             startingDepth = finDepth
 
         """controlling the robot"""
@@ -148,21 +148,21 @@ try:
         BODY = 0
         body = 6000
         # this might need to be adjusted to a larger threshold
-        if finDepth > 1.1:
-            body = 5300
-            if (body > 7900):
-                body = 7900
-            print("waist right")
-            print("forwards")
-        elif finDepth < 0.9:
-            body = 6650
-            if (body < 1510):
-                body = 1510
-            print('waist left')
-            print("backwards")
-
-        else:
-            body = 6000
+        if startingDepth:
+            if finDepth > 1.1:
+                body = 5300
+                if (body > 7900):
+                    body = 7900
+                print("waist right")
+                print("forwards")
+            elif finDepth < 0.9:
+                body = 6650
+                if (body < 1510):
+                    body = 1510
+                print('waist left')
+                print("backwards")
+            else:
+                body = 6000
 
         if not ok:
             body = 6000
