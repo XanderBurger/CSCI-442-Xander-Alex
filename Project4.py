@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import maestro as controller
 
-'''Xander burger & Hoang Dang - CSCI442, Project 3 Pyrealsense depth detection'''
+'''Xander burger & Hoang Dang - CSCI442, Project 4 Pyrealsense depth detection'''
 
 """Most of this code is from the opencv_viewer_example from assigment sheet"""
 # Configure depth and color stream
@@ -148,10 +148,11 @@ try:
         # this might need to be adjusted to a larger threshold
         if depthDiff > 0:
             motorStrength = 4000
+
         elif depthDiff < 0:
             motorStrength = -4000
 
-        print(motorStrength)
+        print(depthDiff)
 
         """drawing on lower screen"""
         center = (int(blank_image.shape[0]/2), int(blank_image.shape[1]/2))
