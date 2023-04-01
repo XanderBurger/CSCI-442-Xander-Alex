@@ -155,7 +155,7 @@ try:
             print("waist right")
             print("forwards")
         elif finDepth < 0.9:
-            body = 5500
+            body = 5400
             if (body < 1510):
                 body = 1510
             print('waist left')
