@@ -142,6 +142,7 @@ try:
             startingDepth = finDepth
 
         """controlling the robot"""
+        depthDiff = 0
         if startingDepth:
             depthDiff = finDepth - startingDepth
 
