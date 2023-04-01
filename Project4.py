@@ -146,11 +146,11 @@ try:
         motorStrength = 0
 
         # this might need to be adjusted to a larger threshold
-        if depthDiff > 0.5:
+        if depthDiff > 0.1:
             motorStrength = 3000
             print("forwards")
 
-        elif depthDiff < -0.5:
+        elif depthDiff < -0.1:
             motorStrength = -3000
             print("backwards")
 
