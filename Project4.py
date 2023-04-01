@@ -141,7 +141,7 @@ try:
             startingDepth = finDepth
 
         """controlling the robot"""
-        depthDiff = - finDepth - startingDepth
+        depthDiff = startingDepth - finDepth
 
         motorStrength = 0
 
