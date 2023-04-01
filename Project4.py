@@ -1,7 +1,7 @@
 import pyrealsense2 as rs
 import numpy as np
 import cv2
-import maestro as controller
+from maestro import Controller
 
 '''Xander burger & Hoang Dang - CSCI442, Project 4 Pyrealsense depth detection'''
 
@@ -84,14 +84,14 @@ try:
 
         # Convert images to numpy arrays
         """image being displayed"""
-        depth_image = np.asanyarray(depth_frame.get_data())
+        # depth_image = np.asanyarray(depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
-        depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(
-            depth_image, alpha=0.03), cv2.COLORMAP_JET)
+        # depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(
+        #     depth_image, alpha=0.03), cv2.COLORMAP_JET)
 
-        depth_colormap_dim = depth_colormap.shape
+        # depth_colormap_dim = depth_colormap.shape
         color_colormap_dim = color_image.shape
 
         # Tracking Object
@@ -105,14 +105,14 @@ try:
             cv2.rectangle(color_image, p1, p2, (255, 0, 0), 2, 1)
 
         # If depth and color resolutions are different, resize color image to match depth image for display
-        if depth_colormap_dim != color_colormap_dim:
-            print("resize")
-            resized_color_image = cv2.resize(color_image, dsize=(
-                depth_colormap_dim[1], depth_colormap_dim[0]), interpolation=cv2.INTER_AREA)
+        # if depth_colormap_dim != color_colormap_dim:
+        #     print("resize")
+        #     resized_color_image = cv2.resize(color_image, dsize=(
+        #         depth_colormap_dim[1], depth_colormap_dim[0]), interpolation=cv2.INTER_AREA)
 
-            images = np.hstack((resized_color_image, depth_colormap))
-        else:
-            images = np.hstack((color_image, depth_colormap))
+        #     images = np.hstack((resized_color_image, depth_colormap))
+        # else:
+        #     images = np.hstack((color_image, depth_colormap))
 
         """This is the blank image below to video feeds, where the odometry stuff needs to be drawn."""
         blank_image = np.zeros(
@@ -154,7 +154,8 @@ try:
             motorStrength = -3000
             print("backwards")
 
-        print(depthDiff)
+        print(ok)
+        print(finDepth)
 
         """drawing on lower screen"""
         center = (int(blank_image.shape[0]/2), int(blank_image.shape[1]/2))
@@ -169,7 +170,8 @@ try:
         y = int(center[0] - finDepth * scaling)
         cv2.line(blank_image, (xStart, y), (xEnd, y), (255, 0, 0))
 
-        images = np.vstack((images, blank_image))
+        # images = np.vstack((images, blank_image))
+        images = color_image
 
         # Show images
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
