@@ -1,7 +1,7 @@
 import pyrealsense2 as rs
 import numpy as np
 import cv2
-import maestro as controllert
+import maestro as controller
 
 '''Xander burger & Hoang Dang - CSCI442, Project 3 Pyrealsense depth detection'''
 
@@ -65,6 +65,9 @@ tracker = cv2.TrackerKCF_create()
 
 ok = tracker.init(color_image, bbox)
 depthList = []
+
+startingDepth = None
+
 try:
     while True:
 
@@ -131,6 +134,25 @@ try:
             depthList.pop(0)
         '''Smooth out depth with recent depth values'''
         finDepth = sum(depthList) / len(depthList)
+
+        """Setting a starting depth to compare to"""
+        # this might need to be ran for a few frames so we get a more accurate starting depth
+        if not startingDepth:
+            startingDepth = finDepth
+
+        """controlling the robot"""
+        depthDiff = finDepth - startingDepth
+
+        motorStrength = 0
+
+        # this might need to be adjusted to a larger threshold
+        if depthDiff > 0:
+            motorStrength = 4000
+        elif depthDiff < 0:
+            motorStrength = -4000
+
+        print(motorStrength)
+
         """drawing on lower screen"""
         center = (int(blank_image.shape[0]/2), int(blank_image.shape[1]/2))
         cv2.rectangle(
