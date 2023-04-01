@@ -148,11 +148,13 @@ try:
         # this might need to be adjusted to a larger threshold
         if depthDiff > 0.5:
             motorStrength = 3000
+            print("forwards")
 
         elif depthDiff < -0.5:
             motorStrength = -3000
+            print("backwards")
 
-        print(depthDiff)
+        # print(depthDiff)
 
         """drawing on lower screen"""
         center = (int(blank_image.shape[0]/2), int(blank_image.shape[1]/2))
