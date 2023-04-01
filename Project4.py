@@ -67,6 +67,7 @@ ok = tracker.init(color_image, bbox)
 depthList = []
 
 startingDepth = None
+tango = Controller()
 
 try:
     while True:
@@ -144,14 +145,22 @@ try:
         depthDiff = finDepth - startingDepth
 
         motorStrength = 0
-
+        BODY = 0
         # this might need to be adjusted to a larger threshold
         if finDepth > 1.1:
-            motorStrength = 3000
+            body = 4000
+            if (body > 7900):
+                body = 7900
+            tango.setTarget(BODY, body)
+            print("waist right")
             print("forwards")
 
         elif finDepth < 0.9:
-            motorStrength = -3000
+            body = 2000
+            if (body < 1510):
+                body = 1510
+            tango.setTarget(BODY, body)
+            print('waist left')
             print("backwards")
 
         print(ok)
