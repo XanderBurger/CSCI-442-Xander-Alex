@@ -149,7 +149,7 @@ try:
         body = 6000
         # this might need to be adjusted to a larger threshold
         if finDepth > 1.1:
-            body = 6500
+            body = 6600
             if (body > 7900):
                 body = 7900
             print("waist right")
