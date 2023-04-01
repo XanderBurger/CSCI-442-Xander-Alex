@@ -154,7 +154,7 @@ try:
             motorStrength = -3000
             print("backwards")
 
-        # print(depthDiff)
+        print(depthDiff)
 
         """drawing on lower screen"""
         center = (int(blank_image.shape[0]/2), int(blank_image.shape[1]/2))
