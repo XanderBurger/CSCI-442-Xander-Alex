@@ -149,13 +149,13 @@ try:
         body = 6000
         # this might need to be adjusted to a larger threshold
         if finDepth > 1.1:
-            body = 6600
+            body = 7000
             if (body > 7900):
                 body = 7900
             print("waist right")
             print("forwards")
         elif finDepth < 0.9:
-            body = 5400
+            body = 5000
             if (body < 1510):
                 body = 1510
             print('waist left')
