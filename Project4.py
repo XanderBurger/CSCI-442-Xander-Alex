@@ -150,23 +150,23 @@ try:
         BODY = 0
         body = 6000
         # this might need to be adjusted to a larger threshold
-        if startingDepth:
-            # if finDepth > 1.1:
-            if depthDiff > 0:
-                body = 5300
-                if (body > 7900):
-                    body = 7900
-                print("waist right")
-                print("forwards")
-           # elif finDepth < 0.9:
-            elif depthDiff < 0:
-                body = 6650
-                if (body < 1510):
-                    body = 1510
-                print('waist left')
-                print("backwards")
-            else:
-                body = 6000
+        # if startingDepth:
+        if finDepth > 1.1:
+            # if depthDiff > 0:
+            body = 5300
+            if (body > 7900):
+                body = 7900
+            print("waist right")
+            print("forwards")
+        elif finDepth < 0.9:
+            # elif depthDiff < 0:
+            body = 6650
+            if (body < 1510):
+                body = 1510
+            print('waist left')
+            print("backwards")
+        else:
+            body = 6000
 
         if not ok:
             body = 6000
@@ -174,7 +174,8 @@ try:
         tango.setTarget(BODY, body)
 
         print(ok)
-        print(depthDiff)
+        # print(depthDiff)
+        print(finDepth)
 
         """drawing on lower screen"""
         center = (int(blank_image.shape[0]/2), int(blank_image.shape[1]/2))
