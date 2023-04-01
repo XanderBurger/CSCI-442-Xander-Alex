@@ -146,10 +146,10 @@ try:
         motorStrength = 0
 
         # this might need to be adjusted to a larger threshold
-        if depthDiff > 0:
+        if depthDiff > 0.5:
             motorStrength = 4000
 
-        elif depthDiff < 0:
+        elif depthDiff < -0.5:
             motorStrength = -4000
 
         print(depthDiff)
