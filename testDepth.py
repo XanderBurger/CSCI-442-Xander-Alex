@@ -78,6 +78,7 @@ startingDepth = None
 tango = Controller()
 motorStrength = 0
 BODY = 0
+threshold = 0.3
 
 try:
     # Create a context object. This object owns the handles to all connected realsense devices
@@ -124,15 +125,16 @@ try:
         speed = 6000
         if centerDepth == 0 or not ok:
             tango.setTarget(BODY, speed)
+            print("not OK")
             continue
 
         depthDiff = centerDepth - startingDepth
         print(depthDiff)
 
-        if depthDiff > 0.2:
-            speed = 5200
+        if depthDiff > threshold:
+            speed = 5300
             print("forwards")
-        elif depthDiff < -0.2:
+        elif depthDiff < -threshold:
             speed = 6650
             print("backwards")
         else:
