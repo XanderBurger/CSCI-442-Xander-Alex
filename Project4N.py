@@ -1,0 +1,182 @@
+import pyrealsense2 as rs
+import numpy as np
+import cv2
+from maestro import Controller
+
+'''Xander burger & Hoang Dang - CSCI442, Project 4 Pyrealsense depth detection'''
+
+"""Most of this code is from the opencv_viewer_example from assigment sheet"""
+# Configure depth and color stream
+
+pipeline = rs.pipeline()
+config = rs.config()
+
+# Get device product line for setting a supporting resolution
+pipeline_wrapper = rs.pipeline_wrapper(pipeline)
+pipeline_profile = config.resolve(pipeline_wrapper)
+device = pipeline_profile.get_device()
+device_product_line = str(device.get_info(rs.camera_info.product_line))
+
+found_rgb = False
+for s in device.sensors:
+    if s.get_info(rs.camera_info.name) == 'RGB Camera':
+        found_rgb = True
+        break
+if not found_rgb:
+    print("The demo requires Depth camera with Color sensor")
+    exit(0)
+
+config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+
+if device_product_line == 'L500':
+    config.enable_stream(rs.stream.color, 960, 540, rs.format.bgr8, 30)
+else:
+    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+
+
+# Start streaming
+pipeline.start(config)
+
+# Create an align object
+# rs.align allows us to perform alignment of depth frames to others frames
+# The "align_to" is the stream type to which we plan to align depth frames.
+align_to = rs.stream.color
+align = rs.align(align_to)
+
+"""gets the first frame from camera and instantiate the tracker"""
+frames = pipeline.wait_for_frames()
+color_frame = frames.get_color_frame()
+
+if not color_frame:
+    print("no Frames")
+
+"""first frame as numpy array"""
+color_image = np.asanyarray(color_frame.get_data())
+
+'''Adjust brightness/contrast, not sure why image has green tint'''
+a = 4.0  # Brightness control (1.0-3.0)
+b = 75  # Contrast control (0-100)
+color_image = cv2.convertScaleAbs(color_image, alpha=a, beta=b)
+
+"""draw a bounding box around object to be tracked then hit enter"""
+bbox = cv2.selectROI(color_image, False)
+
+tracker = cv2.TrackerKCF_create()
+
+ok = tracker.init(color_image, bbox)
+depthList = []
+
+startingDepth = None
+tango = Controller()
+
+try:
+    while True:
+
+        # Wait for a coherent pair of frames: depth and color
+        frames = pipeline.wait_for_frames()
+        aligned_frames = align.process(frames)
+
+        depth_frame = frames.get_depth_frame()
+        color_frame = frames.get_color_frame()
+
+        if not depth_frame or not color_frame:
+            print("no Frames")
+            continue
+
+        """image being displayed"""
+
+        color_image = np.asanyarray(color_frame.get_data())
+
+        color_colormap_dim = color_image.shape
+
+        # Tracking Object
+        """updates tracker and returns a new bounding box around object"""
+        ok, bbox = tracker.update(color_image)
+
+        """drawing the bounding box on screen"""
+        if ok:
+            p1 = (int(bbox[0]), bbox[1])
+            p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
+            cv2.rectangle(color_image, p1, p2, (255, 0, 0), 2, 1)
+
+        # If depth and color resolutions are different, resize color image to match depth image for display
+        # if depth_colormap_dim != color_colormap_dim:
+        #     print("resize")
+        #     resized_color_image = cv2.resize(color_image, dsize=(
+        #         depth_colormap_dim[1], depth_colormap_dim[0]), interpolation=cv2.INTER_AREA)
+
+        #     images = np.hstack((resized_color_image, depth_colormap))
+        # else:
+        #     images = np.hstack((color_image, depth_colormap))
+
+        """This is the blank image below to video feeds, where the odometry stuff needs to be drawn."""
+        object_corners = ((bbox[0], bbox[1]), (bbox[0]+bbox[2], bbox[1]))
+        object_width = bbox[2] - bbox[0]
+
+        """The get_distance() methods called on the depth_frame takes an x and y and returns the depth at that point"""
+        depthThresh = 0.2
+        depth_to_object = depth_frame.get_distance(
+            bbox[0]+bbox[2]/2, bbox[1]+bbox[3]/2)  # use the center of the bounding box
+        '''check if values are within depth threshold'''
+        if depth_to_object < depthThresh:
+            depth_to_object = depthThresh
+        elif depth_to_object > depthThresh + 1.0:
+            depth_to_object = depthThresh + 1.0
+        depthList.append(depth_to_object)
+        if len(depthList) > 15:
+            depthList.pop(0)
+        '''Smooth out depth with recent depth values'''
+        finDepth = sum(depthList) / len(depthList)
+
+        """Setting a starting depth to compare to"""
+        # this might need to be ran for a few frames so we get a more accurate starting depth
+        if not startingDepth and len(depthList) > 14:
+            startingDepth = finDepth
+
+        """controlling the robot"""
+        depthDiff = 0
+        if startingDepth:
+            depthDiff = finDepth - startingDepth
+
+        motorStrength = 0
+        BODY = 0
+        body = 6000
+        # this might need to be adjusted to a larger threshold
+        # if startingDepth:
+        # if finDepth > 1.1:
+        #     # if depthDiff > 0:
+        #     body = 5300
+        #     if (body > 7900):
+        #         body = 7900
+        #     print("waist right")
+        #     print("forwards")
+        # elif finDepth < 0.9:
+        #     # elif depthDiff < 0:
+        #     body = 6650
+        #     if (body < 1510):
+        #         body = 1510
+        #     print('waist left')
+        #     print("backwards")
+        # else:
+        #     body = 6000
+
+        # if not ok:
+        #     body = 6000
+
+        # tango.setTarget(BODY, body)
+
+        print(ok)
+        # print(depthDiff)
+        print(finDepth)
+
+        """drawing on lower screen"""
+
+        # Show images
+        cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('RealSense',  color_image)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+finally:
+    # Stop streaming
+    pipeline.stop()
