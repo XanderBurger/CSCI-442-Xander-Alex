@@ -75,7 +75,7 @@ threshold = 0.3
 try:
     # Create a context object. This object owns the handles to all connected realsense devices
     startingDepth = None
-    depthDiff = []
+    depthList = []
     for i in range(30):
 
         frames = pipeline.wait_for_frames()
@@ -93,9 +93,10 @@ try:
 
         if centerDepth == 0:
             continue
-        depthDiff.append(centerDepth)
+        depthList.append(centerDepth)
 
-    startingDepth = sum(depthDiff)/len(depthDiff)
+    startingDepth = sum(depthList)/len(depthList)
+    print("starting depth => ", startingDepth)
 
     while True:
         # This call waits until a new coherent set of frames is available on a device
@@ -148,11 +149,7 @@ try:
             break
 
     exit(0)
-# except rs.error as e:
-#    # Method calls agaisnt librealsense objects may throw exceptions of type pylibrs.error
-#    print("pylibrs.error was thrown when calling %s(%s):\n", % (e.get_failed_function(), e.get_failed_args()))
-#    print("    %s\n", e.what())
-#    exit(1)
+
 except Exception as e:
     print(e)
     pass
