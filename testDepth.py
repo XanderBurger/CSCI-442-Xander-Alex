@@ -87,7 +87,7 @@ try:
 
         frames = pipeline.wait_for_frames()
         depth = frames.get_depth_frame()
-        color_image = frames.get_color_frame()
+        color_frame = frames.get_color_frame()
         color_image = np.asanyarray(color_frame.get_data())
 
         ok, bbox = tracker.update(color_image)
@@ -110,7 +110,7 @@ try:
         frames = pipeline.wait_for_frames()
         depth = frames.get_depth_frame()
 
-        color_image = frames.get_color_frame()
+        color_frame = frames.get_color_frame()
         color_image = np.asanyarray(color_frame.get_data())
 
         ok, bbox = tracker.update(color_image)
@@ -130,7 +130,7 @@ try:
         print(depthDiff)
 
         if depthDiff > 0.2:
-            speed = 5300
+            speed = 5150
             print("forwards")
         if depthDiff < -0.2:
             speed = 6650
@@ -149,7 +149,8 @@ try:
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', color_image)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(27) & 0xFF == ord('esc'):
+            tango.setTarget(BODY, 6000)
             break
 
     exit(0)
