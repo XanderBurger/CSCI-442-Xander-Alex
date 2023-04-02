@@ -142,7 +142,7 @@ try:
             p1 = (int(bbox[0]), int(bbox[1]))
             p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
             cv2.rectangle(color_image, p1, p2, (0, 255, 0), 2, 1)
-            cv2.circle(color_image, objectCenter, 63, (255, 0, 0), -1)
+            cv2.circle(color_image, objectCenter, 25, (255, 0, 0), -1)
 
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', color_image)
