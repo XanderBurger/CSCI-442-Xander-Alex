@@ -9,6 +9,7 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
+from maestro import Controller
 
 '''Xander burger & Hoang Dang - CSCI442, Project 4 Pyrealsense depth detection'''
 
