@@ -94,7 +94,8 @@ try:
         if not depth or not ok:
             continue
 
-        centerDepth = depth.get_distance(bbox[0]+bbox[2]/2, bbox[1]+bbox[3]/2)
+        centerDepth = depth.get_distance(
+            int(bbox[0]+bbox[2]/2), int(bbox[1]+bbox[3]/2))
 
         if centerDepth == 0:
             continue
