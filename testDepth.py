@@ -1,11 +1,3 @@
-# License: Apache 2.0. See LICENSE file in root directory.
-# Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
-
-#####################################################
-## librealsense tutorial #1 - Accessing depth data ##
-#####################################################
-
-# First import the library
 import pyrealsense2 as rs
 import cv2
 import numpy as np
@@ -132,10 +124,10 @@ try:
         print(depthDiff)
 
         if depthDiff > threshold:
-            speed = 5300
+            speed = 5250
             print("forwards")
         elif depthDiff < -threshold:
-            speed = 6650
+            speed = 6700
             print("backwards")
         else:
             speed = 6000
