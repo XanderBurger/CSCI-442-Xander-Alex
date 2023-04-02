@@ -76,6 +76,7 @@ depthList = []
 
 startingDepth = None
 tango = Controller()
+motorStrength = 0
 BODY = 0
 
 try:
@@ -132,7 +133,7 @@ try:
             speed = 5300
             print("forwards")
         if depthDiff < -0.2:
-            body = 6650
+            speed = 6650
             print("backwards")
         else:
             speed = 6000
