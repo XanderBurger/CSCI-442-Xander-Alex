@@ -132,7 +132,7 @@ try:
             speed = 5300
             print("forwards")
         if depthDiff < -0.2:
-            body = 6650
+            body = 6700
             print("backwards")
         else:
             speed = 6000
