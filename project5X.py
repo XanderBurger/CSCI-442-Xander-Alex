@@ -42,14 +42,15 @@ pipeline.start(config)
 align_to = rs.stream.color
 align = rs.align(align_to)
 
+width = 640
+height = 480
+
 
 def centerOfGravity(pixelArray):
     whitPixelsX = []
     whitPixelsY = []
-    width = len(pixelArray)
-    height = len(pixelArray[0])
-    for x in width:
-        for y in height:
+    for x in range(width):
+        for y in range(height):
             if pixelArray[x][y] == 255:
                 whitPixelsX.append(x)
                 whitPixelsY.append(y)
