@@ -61,13 +61,16 @@ try:
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
-        # # Sobel filter for edge detection
-        # edgeX = cv2.Sobel(blurred, cv2.CV_64F, 1, 0, ksize=5)
-        # edgeY = cv2.Sobel(blurred, cv2.CV_64F, 0, 1, ksize=5)
-        # # Combine
-        # edges = cv2.addWeighted(edgeX, 0.5, edgeY, 0.5, 0)
-
-        edges = cv2.Canny(blurred, 10, 70) # Canny filter (seems to work better)
+        # Canny filter with larger kernel and squared pixels
+        edges = cv2.Canny(blurred, 10, 50)
+        edges = cv2.filter2D(edges, -1, np.array([[-1, -1, -1, -1, -1],
+                                                   [-1, 0, 0, 0, -1],
+                                                   [-1, 0, 16, 0, -1],
+                                                   [-1, 0, 0, 0, -1],
+                                                   [-1, -1, -1, -1, -1]]))
+        edges = cv2.multiply(edges, edges)
+        edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX)
+        edges = cv2.threshold(edges, 40, 255, cv2.THRESH_BINARY)[1]
 
         # Show frames
         cv2.imshow('Original Frame', frame)
