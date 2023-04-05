@@ -1,11 +1,3 @@
-# License: Apache 2.0. See LICENSE file in root directory.
-# Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
-
-#####################################################
-## librealsense tutorial #1 - Accessing depth data ##
-#####################################################
-
-# First import the library
 import pyrealsense2 as rs
 import cv2
 import numpy as np
@@ -76,17 +68,19 @@ depthList = []
 
 startingDepth = None
 tango = Controller()
+motorStrength = 0
 BODY = 0
+threshold = 0.3
 
 try:
     # Create a context object. This object owns the handles to all connected realsense devices
     startingDepth = None
-    depthDiff = []
+    depthList = []
     for i in range(30):
 
         frames = pipeline.wait_for_frames()
         depth = frames.get_depth_frame()
-        color_image = frames.get_color_frame()
+        color_frame = frames.get_color_frame()
         color_image = np.asanyarray(color_frame.get_data())
 
         ok, bbox = tracker.update(color_image)
@@ -99,9 +93,10 @@ try:
 
         if centerDepth == 0:
             continue
-        depthDiff.append(centerDepth)
+        depthList.append(centerDepth)
 
-    startingDepth = sum(depthDiff)/len(depthDiff)
+    startingDepth = sum(depthList)/len(depthList)
+    print("starting depth => ", startingDepth)
 
     while True:
         # This call waits until a new coherent set of frames is available on a device
@@ -109,7 +104,7 @@ try:
         frames = pipeline.wait_for_frames()
         depth = frames.get_depth_frame()
 
-        color_image = frames.get_color_frame()
+        color_frame = frames.get_color_frame()
         color_image = np.asanyarray(color_frame.get_data())
 
         ok, bbox = tracker.update(color_image)
@@ -123,16 +118,17 @@ try:
         speed = 6000
         if centerDepth == 0 or not ok:
             tango.setTarget(BODY, speed)
+            print("not OK")
             continue
 
         depthDiff = centerDepth - startingDepth
         print(depthDiff)
 
-        if depthDiff > 0.2:
-            speed = 5300
+        if depthDiff > threshold:
+            speed = 5250
             print("forwards")
-        if depthDiff < -0.2:
-            body = 6700
+        elif depthDiff < -threshold:
+            speed = 6700
             print("backwards")
         else:
             speed = 6000
@@ -149,14 +145,11 @@ try:
         cv2.imshow('RealSense', color_image)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            tango.setTarget(BODY, 6000)
             break
 
     exit(0)
-# except rs.error as e:
-#    # Method calls agaisnt librealsense objects may throw exceptions of type pylibrs.error
-#    print("pylibrs.error was thrown when calling %s(%s):\n", % (e.get_failed_function(), e.get_failed_args()))
-#    print("    %s\n", e.what())
-#    exit(1)
+
 except Exception as e:
     print(e)
     pass
