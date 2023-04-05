@@ -67,7 +67,7 @@ try:
         # # Combine
         # edges = cv2.addWeighted(edgeX, 0.5, edgeY, 0.5, 0)
 
-        edges = cv2.Canny(blurred, 5, 300) # Canny filter (seems to work better)
+        edges = cv2.Canny(blurred, 10, 100) # Canny filter (seems to work better)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
