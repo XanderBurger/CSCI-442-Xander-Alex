@@ -60,25 +60,32 @@ try:
         normalized = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX)
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
+        # Larger filter to start
+        kernel = np.array([[-1, -1, -1, -1, -1],
+                           [-1, 0, 0, 0, -1],
+                           [-1, 0, 16, 0, -1],
+                           [-1, 0, 0, 0, -1],
+                           [-1, -1, -1, -1, -1]])
 
-        # Canny filter with larger kernel and squared pixels
-        edges = cv2.Canny(blurred, 30, 50)
-        edges = cv2.filter2D(edges, -1, np.array([[-1, -1, -1, -1, -1],
-                                                   [-1, 0, 0, 0, -1],
-                                                   [-1, 0, 16, 0, -1],
-                                                   [-1, 0, 0, 0, -1],
-                                                   [-1, -1, -1, -1, -1]]))
-        edges = cv2.multiply(edges, edges)
-        edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX)
-        edges = cv2.threshold(edges, 40, 255, cv2.THRESH_BINARY)[1]
+        # Apply filter and square the resulting pixel values
+        filtered = cv2.filter2D(blurred, -1, kernel)
+        squared = np.square(filtered)
+
+        # Normalize and threshold the image
+        squared = cv2.normalize(squared, None, 0, 255, cv2.NORM_MINMAX)
+        thresholded = cv2.threshold(squared, 40, 255, cv2.THRESH_BINARY)[1]
+
+        # Erode and dilate the image to remove small regions and fill gaps
+        kernel = np.ones((5, 5), np.uint8)
+        eroded = cv2.erode(thresholded, kernel, iterations=1)
+        dilated = cv2.dilate(eroded, kernel, iterations=1)
+
+        # Canny edge detection
+        edges = cv2.Canny(dilated, 10, 70)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
         cv2.imshow('Edge Detected Frame', edges)
-
-        # Exit with 'q'
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
 
 
 finally:
