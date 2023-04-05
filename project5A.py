@@ -61,7 +61,7 @@ try:
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
         # Canny filter with larger kernel and squared pixels
-        edges = cv2.Canny(blurred, 30, 50)
+        edges = cv2.Canny(blurred, 100, 200)
         edges = cv2.filter2D(edges, -1, np.array([[-1, -1, -1, -1, -1],
                                                    [-1, 0, 0, 0, -1],
                                                    [-1, 0, 16, 0, -1],
