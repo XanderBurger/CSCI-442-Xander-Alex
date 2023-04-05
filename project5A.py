@@ -57,7 +57,7 @@ try:
         # Grayscale (better for edge detection)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # Normalize
-        normalized = cv2.normalize(frame, None, 0, 255, cv2.NORM_MINMAX)
+        normalized = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX)
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
