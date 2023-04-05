@@ -61,23 +61,16 @@ try:
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
-        # Larger filter to start
-        kernel = np.array([[-1, -1, -1, -1, -1],
-                           [-1, 0, 0, 0, -1],
-                           [-1, 0, 16, 0, -1],
-                           [-1, 0, 0, 0, -1],
-                           [-1, -1, -1, -1, -1]])
-
-        # Apply filter and square the resulting pixel values
-        filtered = cv2.filter2D(blurred, -1, kernel)
-        squared = np.square(filtered)
-
-        # Normalize and threshold the image
-        squared = cv2.normalize(squared, None, 0, 255, cv2.NORM_MINMAX)
-        squared[squared < 40] = 0
-
-        # Canny edge detection
-        edges = cv2.Canny(squared, 10, 70)
+        # Canny filter with larger kernel and squared pixels
+        edges = cv2.Canny(blurred, 30, 50)
+        edges = cv2.filter2D(edges, -1, np.array([[-1, -1, -1, -1, -1],
+                                                   [-1, 0, 0, 0, -1],
+                                                   [-1, 0, 16, 0, -1],
+                                                   [-1, 0, 0, 0, -1],
+                                                   [-1, -1, -1, -1, -1]]))
+        edges = cv2.multiply(edges, edges)
+        edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX)
+        edges = cv2.threshold(edges, 40, 255, cv2.THRESH_BINARY)[1]
 
         # Show frames
         cv2.imshow('Original Frame', frame)
