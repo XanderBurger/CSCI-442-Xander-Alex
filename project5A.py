@@ -61,14 +61,14 @@ try:
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
-        # Canny filter with larger kernel and squared pixels
-        edges = cv2.Canny(blurred, 30, 100)
-        edges = cv2.filter2D(edges, -1, np.array([[-1, -1, -1, -1, -1],
-                                                   [-1, 0, 0, 0, -1],
-                                                   [-1, 0, 16, 0, -1],
-                                                   [-1, 0, 0, 0, -1],
-                                                   [-1, -1, -1, -1, -1]]))
-        edges = cv2.multiply(edges, edges)
+        # Apply the filter steps you mentioned
+        filter_kernel = np.array([[-1,-1,-1,-1,-1],
+                                  [-1, 0, 0, 0,-1],
+                                  [-1, 0,16, 0,-1],
+                                  [-1, 0, 0, 0,-1],
+                                  [-1,-1,-1,-1,-1]])
+        edges = cv2.filter2D(blurred, -1, filter_kernel)
+        edges = np.square(edges)
         edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX)
         edges = cv2.threshold(edges, 40, 255, cv2.THRESH_BINARY)[1]
 
