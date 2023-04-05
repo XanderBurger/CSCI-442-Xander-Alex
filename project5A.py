@@ -81,7 +81,7 @@ try:
         cv2.drawContours(mask, contours, -1, 255, -1)
 
         # Apply Canny edge detection to the masked image
-        edges = cv2.Canny(mask, 50, 150)
+        edges = cv2.Canny(mask, 150, 250)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
