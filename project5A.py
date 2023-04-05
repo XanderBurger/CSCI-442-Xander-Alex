@@ -67,7 +67,7 @@ try:
         # # Combine
         # edges = cv2.addWeighted(edgeX, 0.5, edgeY, 0.5, 0)
         adaptiveThresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
-        edges = cv2.Canny(adaptiveThresh, 125, 275) # Canny filter (seems to work better)
+        edges = cv2.Canny(adaptiveThresh, 50, 150) # Canny filter (seems to work better)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
