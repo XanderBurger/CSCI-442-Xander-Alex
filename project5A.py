@@ -56,13 +56,13 @@ try:
         # Grayscale (better for edge detection)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # Normalize
-        normalized_gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX)
+        normalized = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX)
         # Gaussian blur
-        blurred_gray = cv2.GaussianBlur(normalized_gray, (5, 5), 0)
+        blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
         # Sobel filter for edge detection
-        sobelx = cv2.Sobel(blurred_gray, cv2.CV_64F, 1, 0, ksize=5)
-        sobely = cv2.Sobel(blurred_gray, cv2.CV_64F, 0, 1, ksize=5)
+        sobelx = cv2.Sobel(blurred, cv2.CV_64F, 1, 0, ksize=5)
+        sobely = cv2.Sobel(blurred, cv2.CV_64F, 0, 1, ksize=5)
         # Combine
         edges = cv2.addWeighted(sobelx, 0.5, sobely, 0.5, 0)
 
