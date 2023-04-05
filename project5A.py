@@ -49,8 +49,9 @@ try:
         frames = pipeline.wait_for_frames()
         color_frame = frames.get_color_frame()
         if not color_frame:
+            print("no Frames")
             continue
-        frame = np.array(color_frame.get_data())
+        frame = np.asanyarray(color_frame.get_data())
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
         # Grayscale (better for edge detection)
