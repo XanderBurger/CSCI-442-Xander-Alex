@@ -66,8 +66,22 @@ try:
         # edgeY = cv2.Sobel(blurred, cv2.CV_64F, 0, 1, ksize=5)
         # # Combine
         # edges = cv2.addWeighted(edgeX, 0.5, edgeY, 0.5, 0)
-        adaptiveThresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
-        edges = cv2.Canny(adaptiveThresh, 50, 150) # Canny filter (seems to work better)
+        # Apply adaptive thresholding
+        adaptive_thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+
+        # Apply morphological operations to remove noise
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+        opening = cv2.morphologyEx(adaptive_thresh, cv2.MORPH_OPEN, kernel)
+
+        # Find contours in the image
+        contours, hierarchy = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # Draw contours on the original image
+        mask = np.zeros_like(opening)
+        cv2.drawContours(mask, contours, -1, 255, -1)
+
+        # Apply Canny edge detection to the masked image
+        edges = cv2.Canny(mask, 50, 150)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
