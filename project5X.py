@@ -55,7 +55,7 @@ def centerOfGravity(pixelArray):
                 whitPixelsX.append(x)
                 whitPixelsY.append(y)
 
-    return (whitPixelsX/width, whitPixelsY/height)
+    return (sum(whitPixelsX)/width, sum(whitPixelsY)/height)
 
 
 try:
@@ -75,12 +75,6 @@ try:
         normalized = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX)
         # Gaussian blur
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
-
-        # # Sobel filter for edge detection
-        # edgeX = cv2.Sobel(blurred, cv2.CV_64F, 1, 0, ksize=5)
-        # edgeY = cv2.Sobel(blurred, cv2.CV_64F, 0, 1, ksize=5)
-        # # Combine
-        # edges = cv2.addWeighted(edgeX, 0.5, edgeY, 0.5, 0)
 
         # Canny filter (seems to work better)
         edges = cv2.Canny(blurred, 100, 200)
