@@ -88,7 +88,7 @@ try:
         # state.process(cof, (320, 240))
 
         # Show frames
-        cv2.circle(frame, cof, 5, (255, 0, 0), -1)
+        cv2.circle(edges, cof, 5, (255, 0, 0), -1)
         cv2.imshow('Original Frame', frame)
         cv2.imshow('Edge Detected Frame', edges)
 
