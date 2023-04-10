@@ -2,7 +2,7 @@ import pyrealsense2 as rs
 import cv2
 import numpy as np
 from maestro import Controller
-from stateMachine import stateMachine
+# from stateMachine import stateMachine
 
 
 '''Xander burger & Hoang Dang - CSCI442, Project 5 Pyrealsense line traversing'''
@@ -85,7 +85,7 @@ try:
         cof = centerOfGravity(edgeArray)
         print(cof)
 
-        state.process(cof, (320, 240))
+        # state.process(cof, (320, 240))
 
         # Show frames
         cv2.circle(frame, cof, 5, (255, 0, 0), -1)
