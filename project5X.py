@@ -52,9 +52,9 @@ height = 480
 def centerOfGravity(pixelArray):
     whitPixelsX = []
     whitPixelsY = []
-    for x in range(width - 1):
-        for y in range(height - 1):
-            if pixelArray[x][y] == 255:
+    for x in range(width):
+        for y in range(height):
+            if pixelArray[y][x] == 255:
                 whitPixelsX.append(x)
                 whitPixelsY.append(y)
 
