@@ -80,15 +80,23 @@ try:
         blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
         # Canny filter (seems to work better)
-        edges = cv2.Canny(blurred, 100, 200)
+        # edges = cv2.Canny(blurred, 100, 200)
         # edgeArray = np.asanyarray(edges.get_data())
-        cof = centerOfGravity(edges)
-        print(cof)
+        im2, contours, hierarchy = cv2.findContours(
+            gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        # cof = centerOfGravity(edges)
+        for c in contours:
+            M = cv2.moments(c)
+
+            # calculate x,y coordinate of center
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            cv2.circle(frame, (cX, cY), 5, (255, 255, 255), -1)
 
         # state.process(cof, (320, 240))
 
         # Show frames
-        cv2.circle(edges, cof, 5, (255, 0, 0), -1)
+        # cv2.circle(edges, cof, 5, (255, 0, 0), -1)
         cv2.imshow('Original Frame', frame)
         cv2.imshow('Edge Detected Frame', edges)
 
