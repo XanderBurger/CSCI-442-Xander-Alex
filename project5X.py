@@ -83,7 +83,7 @@ try:
         # Canny filter (seems to work better)
         # edges = cv2.Canny(blurred, 100, 200)
         # edgeArray = np.asanyarray(edges.get_data())
-        im2, contours, hierarchy = cv2.findContours(
+        contours, hierarchy = cv2.findContours(
             gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         # cof = centerOfGravity(edges)
         for c in contours:
@@ -99,7 +99,7 @@ try:
         # Show frames
         # cv2.circle(edges, cof, 5, (255, 0, 0), -1)
         cv2.imshow('Original Frame', frame)
-        cv2.imshow('Edge Detected Frame', edges)
+        # cv2.imshow('Edge Detected Frame', edges)
 
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
