@@ -12,7 +12,7 @@ from maestro import Controller
 
 pipeline = rs.pipeline()
 config = rs.config()
-state = stateMachine.StateMachine()
+# state = stateMachine.StateMachine()
 
 # Get device product line for setting a supporting resolution
 pipeline_wrapper = rs.pipeline_wrapper(pipeline)
