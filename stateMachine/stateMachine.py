@@ -15,8 +15,13 @@ class StateMachine:
             "RIGHT": Right()
         }
 
-    def process(self, centerOfGravity, center):
+    def process(self, centerOfGravity: float, center: tuple) -> None:
 
-        if (self.CURRENT_STATE):
-            self.CURRENT_STATE = self.states[self.CURRENT_STATE].process(
-                centerOfGravity, center)
+        state = self.states[self.CURRENT_STATE].process(
+            centerOfGravity, center)
+
+        if (state):
+            self.changeState(state)
+
+    def changeState(self, state):
+        self.CURRENT_STATE = state
