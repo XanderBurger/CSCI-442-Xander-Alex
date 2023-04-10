@@ -81,8 +81,8 @@ try:
 
         # Canny filter (seems to work better)
         edges = cv2.Canny(blurred, 100, 200)
-        edgeArray = np.asanyarray(edges.get_data())
-        cof = centerOfGravity(edgeArray)
+        # edgeArray = np.asanyarray(edges.get_data())
+        cof = centerOfGravity(edges)
         print(cof)
 
         # state.process(cof, (320, 240))
