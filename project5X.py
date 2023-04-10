@@ -58,7 +58,7 @@ def centerOfGravity(pixelArray):
                 whitPixelsX.append(x)
                 whitPixelsY.append(y)
 
-    return (sum(whitPixelsX)/width, sum(whitPixelsY)/height)
+    return (int(sum(whitPixelsX)/width), int(sum(whitPixelsY)/height))
 
 
 try:
