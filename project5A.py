@@ -1,7 +1,10 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
-from maestro import Controller
+
+# from maestro import Controller
+# from stateMachine import stateMachine
+
 
 '''Xander burger & Hoang Dang - CSCI442, Project 5 Pyrealsense line traversing'''
 
@@ -10,6 +13,7 @@ from maestro import Controller
 
 pipeline = rs.pipeline()
 config = rs.config()
+# state = stateMachine.StateMachine()
 
 # Get device product line for setting a supporting resolution
 pipeline_wrapper = rs.pipeline_wrapper(pipeline)
@@ -42,6 +46,21 @@ pipeline.start(config)
 align_to = rs.stream.color
 align = rs.align(align_to)
 
+width = 640
+height = 480
+
+
+def centerOfGravity(pixelArray):
+    whitPixelsX = []
+    whitPixelsY = []
+    for x in range(width):
+        for y in range(height):
+            if pixelArray[y][x] == 255:
+                whitPixelsX.append(x)
+                whitPixelsY.append(y)
+
+    return (int(sum(whitPixelsX) / len(whitPixelsX)), int(sum(whitPixelsY) / len(whitPixelsY)))
+
 
 try:
     while True:
@@ -56,28 +75,52 @@ try:
 
         # Grayscale (better for edge detection)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        # Normalize
-        normalized = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX)
-        # Gaussian blur
-        blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
-        # Canny filter with larger kernel and squared pixels
-        edges = cv2.Canny(blurred, 100, 200)
-        edges = cv2.filter2D(edges, -1, np.array([[-1, -1, -1, -1, -1],
-                                                   [-1, 0, 0, 0, -1],
-                                                   [-1, 0, 16, 0, -1],
-                                                   [-1, 0, 0, 0, -1],
-                                                   [-1, -1, -1, -1, -1]]))
-        edges = cv2.multiply(edges, edges)
 
-        edges = cv2.threshold(edges, 40, 255, cv2.THRESH_BINARY)[1]
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+
+        ret, thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY_INV)
+
+        mask = cv2.erode(thresh, None, iterations=2)
+        mask = cv2.dilate(mask, None, iterations=2)
+        # Canny filter (seems to work better)
+        # edges = cv2.Canny(blurred, 100, 200)
+        # edgeArray = np.asanyarray(edges.get_data())
+        contours, hierarchy = cv2.findContours(
+            mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
+
+        if len(contours) > 0:
+            # calculate moments
+            c = max(contours, key=cv2.contourArea)
+            M = cv2.moments(c)
+
+            # calculate x,y coordinate of center
+
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            cv2.line(frame, (cX, 0), (cX, 720), (255, 0, 0), 1)
+            cv2.line(frame, (0, cY), (1280, cY), (255, 0, 0), 1)
+
+            cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
+
+            print(cX)
+            print(cY)
+
+            if cX >= 350:
+                print("Turn Right")
+
+            if cX < 350 and cX > 250:
+                print("On Track!")
+
+            if cX <= 250:
+                print("Turn Left")
 
         # Show frames
         cv2.imshow('Original Frame', frame)
-        cv2.imshow('Edge Detected Frame', edges)
 
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
 
 
 finally:
