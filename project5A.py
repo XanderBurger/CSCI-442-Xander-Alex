@@ -116,7 +116,7 @@ try:
 
         # Show frames
         cv2.imshow('Original Frame', frame)
-
+        cv2.imshow('Thresh', thresh)
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
