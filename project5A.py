@@ -100,7 +100,7 @@ try:
             cv2.line(frame, (cX, 0), (cX, 720), (255, 0, 0), 1)
             cv2.line(frame, (0, cY), (1280, cY), (255, 0, 0), 1)
 
-            cv2.drawContours(frame, contours, 3, (0, 255, 0), 3)
+            cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
 
             print(cX)
             print(cY)
