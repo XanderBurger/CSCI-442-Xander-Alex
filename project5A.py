@@ -104,7 +104,7 @@ try:
 
             if cX >= 350:
                 print("Turn Right")
-                tango.setTarget(HEADTURN, turnR)
+                tango.setTarget(MOTORS, turnR)
                 turnR = 5400
 
             if cX < 350 and cX > 250:
@@ -114,7 +114,7 @@ try:
 
             if cX <= 250:
                 print("Turn Left")
-                tango.setTarget(HEADTURN, turnL)
+                tango.setTarget(MOTORS, turnL)
                 turnL = 6600
 
         else:
