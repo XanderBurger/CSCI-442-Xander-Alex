@@ -73,7 +73,7 @@ try:
 
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 
-        ret, thresh = cv2.threshold(blurred, 148, 255, cv2.THRESH_BINARY)
+        ret, thresh = cv2.threshold(blurred, 145, 255, cv2.THRESH_BINARY)
 
         mask = cv2.erode(thresh, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
@@ -100,7 +100,7 @@ try:
             print(cX)
             print(cY)
 
-            speed = 5200
+            speed = 5250
             tango.setTarget(BODY, speed)
 
             if cX >= 350:
@@ -113,7 +113,7 @@ try:
                 print("On Track!")
                 tango.setTarget(BODY, speed)
                 turnSpeed = 6000
-                speed = 5200
+                speed = 5250
 
             tango.setTarget(MOTORS, turnSpeed)
             tango.setTarget(BODY, speed)
