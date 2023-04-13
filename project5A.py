@@ -73,7 +73,7 @@ try:
 
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 
-        ret, thresh = cv2.threshold(blurred, 130, 150, cv2.THRESH_BINARY)
+        ret, thresh = cv2.threshold(blurred, 80, 150, cv2.THRESH_BINARY)
 
         mask = cv2.erode(thresh, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
