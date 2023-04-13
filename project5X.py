@@ -1,6 +1,7 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
+
 from maestro import Controller
 # from stateMachine import stateMachine
 
@@ -49,18 +50,12 @@ width = 640
 height = 480
 
 
-def centerOfGravity(pixelArray):
-    whitPixelsX = []
-    whitPixelsY = []
-    for x in range(width):
-        for y in range(height):
-            if pixelArray[y][x] == 255:
-                whitPixelsX.append(x)
-                whitPixelsY.append(y)
-
-    return (int(sum(whitPixelsX)/len(whitPixelsX)), int(sum(whitPixelsY)/len(whitPixelsY)))
-
-
+tango = Controller()
+BODY = 0
+speed = 6000
+MOTORS = 1
+TURN = 2
+HEADTURN = 3
 try:
     while True:
         # Frames from camera
@@ -74,35 +69,64 @@ try:
 
         # Grayscale (better for edge detection)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        ret, thresh = cv2.threshold(gray, 127, 255, 0)
-        # Normalize
-        normalized = cv2.normalize(thresh, None, 0, 255, cv2.NORM_MINMAX)
-        # Gaussian blur
-        blurred = cv2.GaussianBlur(normalized, (5, 5), 0)
 
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+
+        ret, thresh = cv2.threshold(blurred, 140, 255, cv2.THRESH_BINARY)
+
+        mask = cv2.erode(thresh, None, iterations=2)
+        mask = cv2.dilate(mask, None, iterations=2)
         # Canny filter (seems to work better)
         # edges = cv2.Canny(blurred, 100, 200)
         # edgeArray = np.asanyarray(edges.get_data())
         contours, hierarchy = cv2.findContours(
-            gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        # cof = centerOfGravity(edges)
-        for c in contours:
+            mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
+
+        if len(contours) > 0:
+            # calculate moments
+            c = max(contours, key=cv2.contourArea)
             M = cv2.moments(c)
 
             # calculate x,y coordinate of center
+
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
-            cv2.circle(frame, (cX, cY), 5, (255, 255, 255), -1)
+            cv2.line(frame, (cX, 0), (cX, 720), (255, 0, 0), 1)
+            cv2.line(frame, (0, cY), (1280, cY), (255, 0, 0), 1)
 
-        # state.process(cof, (320, 240))
+            cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
+
+            print(cX)
+            print(cY)
+
+            speed = 5100
+            tango.setTarget(BODY, speed)
+
+            if cX >= 350:
+                print("Turn Right")
+                turnSpeed = 5200
+            elif cX <= 250:
+                print("Turn Left")
+                turnSpeed = 6800
+            elif cX < 350 and cX > 250:
+                print("On Track!")
+                tango.setTarget(BODY, speed)
+                speed = 5100
+
+            tango.setTarget(MOTORS, turnSpeed)
+            tango.setTarget(BODY, speed)
+
+        else:
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
 
         # Show frames
-        # cv2.circle(edges, cof, 5, (255, 0, 0), -1)
         cv2.imshow('Original Frame', frame)
-        # cv2.imshow('Edge Detected Frame', edges)
-
+        cv2.imshow('Thresh', thresh)
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
             break
 
 
