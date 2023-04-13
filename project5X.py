@@ -53,6 +53,7 @@ height = 480
 tango = Controller()
 BODY = 0
 speed = 6000
+turnSpeed = 6000
 MOTORS = 1
 TURN = 2
 HEADTURN = 3
