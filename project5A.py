@@ -124,13 +124,9 @@ try:
                 tango.setTarget(MOTORS, turnL)
                 turnL = 6600
 
-        else:
-            speed = 6000
-            turnR = 6000
-            turnL = 6000
 
-            tango.setTarget(BODY, 6000)
-            tango.setTarget(MOTORS, 6000)
+
+
 
         # Show frames
         cv2.imshow('Original Frame', frame)
