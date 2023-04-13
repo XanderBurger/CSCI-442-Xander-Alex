@@ -102,15 +102,19 @@ try:
             print(cX)
             print(cY)
 
+            speed = 5250
+            tango.setTarget(BODY, speed)
+
+
             if cX >= 350:
                 print("Turn Right")
                 tango.setTarget(MOTORS, turnR)
                 turnR = 5400
 
-            if cX < 350 and cX > 250:
-                print("On Track!")
-                tango.setTarget(BODY, speed)
-                speed = 5250
+            # if cX < 350 and cX > 250:
+            #     print("On Track!")
+            #     tango.setTarget(BODY, speed)
+            #     speed = 5250
 
             if cX <= 250:
                 print("Turn Left")
@@ -121,6 +125,9 @@ try:
             speed = 6000
             turnR = 6000
             turnL = 6000
+
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
