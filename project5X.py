@@ -100,19 +100,20 @@ try:
             print(cX)
             print(cY)
 
-            speed = 5100
+            speed = 5000
             tango.setTarget(BODY, speed)
 
             if cX >= 350:
                 print("Turn Right")
-                turnSpeed = 5200
+                turnSpeed = 5000
             elif cX <= 250:
                 print("Turn Left")
-                turnSpeed = 6800
+                turnSpeed = 7000
             elif cX < 350 and cX > 250:
                 print("On Track!")
                 tango.setTarget(BODY, speed)
-                speed = 5100
+                turnSpeed = 6000
+                speed = 5000
 
             tango.setTarget(MOTORS, turnSpeed)
             tango.setTarget(BODY, speed)
