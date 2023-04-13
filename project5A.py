@@ -51,11 +51,9 @@ height = 480
 
 
 tango = Controller()
-motorStrength = 0
 BODY = 0
 speed = 6000
-turnR = 6000
-turnL = 6000
+turnSpeed = 6000
 MOTORS = 1
 TURN = 2
 HEADTURN = 3
@@ -102,31 +100,27 @@ try:
             print(cX)
             print(cY)
 
-
-
+            speed = 5200
+            tango.setTarget(BODY, speed)
 
             if cX >= 350:
                 print("Turn Right")
-                tango.setTarget(BODY, speed)
-                speed = 5250
-                tango.setTarget(MOTORS, turnR)
-                turnR = 5400
-
-            if cX < 350 and cX > 250:
+                turnSpeed = 5100
+            elif cX <= 250:
+                print("Turn Left")
+                turnSpeed = 6900
+            elif cX < 350 and cX > 250:
                 print("On Track!")
                 tango.setTarget(BODY, speed)
-                speed = 5250
+                turnSpeed = 6000
+                speed = 5200
 
-            if cX <= 250:
-                print("Turn Left")
-                tango.setTarget(BODY, speed)
-                speed = 5250
-                tango.setTarget(MOTORS, turnL)
-                turnL = 6600
+            tango.setTarget(MOTORS, turnSpeed)
+            tango.setTarget(BODY, speed)
 
-
-
-
+        else:
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
@@ -135,12 +129,7 @@ try:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             tango.setTarget(BODY, 6000)
             tango.setTarget(MOTORS, 6000)
-
-            speed = 6000
-            turnR = 6000
-            turnL = 6000
             break
-
 
 
 finally:
