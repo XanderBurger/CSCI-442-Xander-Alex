@@ -51,12 +51,14 @@ height = 480
 
 
 tango = Controller()
-BODY = 0
+
+FORWARD = 0
+TURN = 1
+
 speed = 6000
 turnSpeed = 6000
-MOTORS = 1
-TURN = 2
-HEADTURN = 3
+
+
 try:
     while True:
         # Frames from camera
@@ -77,9 +79,6 @@ try:
 
         mask = cv2.erode(thresh, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
-        # Canny filter (seems to work better)
-        # edges = cv2.Canny(blurred, 100, 200)
-        # edgeArray = np.asanyarray(edges.get_data())
         contours, hierarchy = cv2.findContours(
             mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
 
@@ -101,7 +100,7 @@ try:
             print(cY)
 
             speed = 5100
-            tango.setTarget(BODY, speed)
+            tango.setTarget(FORWARD, speed)
 
             if cX >= 350:
                 print("Turn Right")
@@ -111,24 +110,24 @@ try:
                 turnSpeed = 7000
             elif cX < 350 and cX > 250:
                 print("On Track!")
-                tango.setTarget(BODY, speed)
+                tango.setTarget(FORWARD, speed)
                 turnSpeed = 6000
                 speed = 5100
 
-            tango.setTarget(MOTORS, turnSpeed)
-            tango.setTarget(BODY, speed)
+            tango.setTarget(TURN, turnSpeed)
+            tango.setTarget(FORWARD, speed)
 
         else:
-            tango.setTarget(BODY, 6000)
-            tango.setTarget(MOTORS, 6000)
+            tango.setTarget(FORWARD, 6000)
+            tango.setTarget(TURN, 6000)
 
         # Show frames
         cv2.imshow('Original Frame', frame)
-        cv2.imshow('Thresh', thresh)
+
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            tango.setTarget(BODY, 6000)
-            tango.setTarget(MOTORS, 6000)
+            tango.setTarget(FORWARD, 6000)
+            tango.setTarget(TURN, 6000)
             break
 
 
