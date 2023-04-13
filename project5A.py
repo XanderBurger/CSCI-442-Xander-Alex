@@ -66,14 +66,14 @@ try:
             print("no Frames")
             continue
         frame = np.asanyarray(color_frame.get_data())
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
         # Grayscale (better for edge detection)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 
-        ret, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY)
+        ret, thresh = cv2.threshold(blurred, 145, 255, cv2.THRESH_BINARY)
 
         mask = cv2.erode(thresh, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
@@ -90,7 +90,6 @@ try:
             M = cv2.moments(c)
 
             # calculate x,y coordinate of center
-
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
             cv2.line(frame, (cX, 0), (cX, 720), (255, 0, 0), 1)
