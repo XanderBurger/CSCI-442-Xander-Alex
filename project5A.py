@@ -81,11 +81,8 @@ try:
         # edges = cv2.Canny(blurred, 100, 200)
         # edgeArray = np.asanyarray(edges.get_data())
 
-        kernel = np.ones((5, 5), np.uint8)
-        closing = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
-
         contours, hierarchy = cv2.findContours(
-            closing.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
 
         if len(contours) > 0:
             # calculate moments
