@@ -2,7 +2,7 @@ import pyrealsense2 as rs
 import cv2
 import numpy as np
 
-# from maestro import Controller
+from maestro import Controller
 # from stateMachine import stateMachine
 
 
@@ -50,18 +50,15 @@ width = 640
 height = 480
 
 
-def centerOfGravity(pixelArray):
-    whitPixelsX = []
-    whitPixelsY = []
-    for x in range(width):
-        for y in range(height):
-            if pixelArray[y][x] == 255:
-                whitPixelsX.append(x)
-                whitPixelsY.append(y)
-
-    return (int(sum(whitPixelsX) / len(whitPixelsX)), int(sum(whitPixelsY) / len(whitPixelsY)))
-
-
+tango = Controller()
+motorStrength = 0
+BODY = 0
+speed = 6000
+turnR = 6000
+turnL = 6000
+MOTORS = 1
+TURN = 2
+HEADTURN = 3
 try:
     while True:
         # Frames from camera
@@ -107,18 +104,32 @@ try:
 
             if cX >= 350:
                 print("Turn Right")
+                tango.setTarget(HEADTURN, turnR)
+                turnR = 5400
 
             if cX < 350 and cX > 250:
                 print("On Track!")
+                tango.setTarget(BODY, speed)
+                speed = 5250
 
             if cX <= 250:
                 print("Turn Left")
+                tango.setTarget(HEADTURN, turnL)
+                turnL = 6600
+
+        else:
+            speed = 6000
+            turnR = 6000
+            turnL = 6000
 
         # Show frames
         cv2.imshow('Original Frame', frame)
         cv2.imshow('Thresh', thresh)
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            speed = 6000
+            turnR = 6000
+            turnL = 6000
             break
 
 
