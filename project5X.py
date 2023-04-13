@@ -100,7 +100,7 @@ try:
             print(cX)
             print(cY)
 
-            speed = 5000
+            speed = 5100
             tango.setTarget(BODY, speed)
 
             if cX >= 350:
@@ -113,7 +113,7 @@ try:
                 print("On Track!")
                 tango.setTarget(BODY, speed)
                 turnSpeed = 6000
-                speed = 5000
+                speed = 5100
 
             tango.setTarget(MOTORS, turnSpeed)
             tango.setTarget(BODY, speed)
