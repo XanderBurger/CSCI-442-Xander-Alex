@@ -127,6 +127,9 @@ try:
         cv2.imshow('Thresh', thresh)
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
+
             speed = 6000
             turnR = 6000
             turnL = 6000
