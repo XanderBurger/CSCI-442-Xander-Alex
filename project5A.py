@@ -121,6 +121,7 @@ try:
         else:
             tango.setTarget(BODY, 6000)
             tango.setTarget(MOTORS, 6000)
+            break
 
         # Show frames
         cv2.imshow('Original Frame', frame)
