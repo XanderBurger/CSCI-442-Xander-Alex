@@ -66,8 +66,8 @@ try:
             print("no Frames")
             continue
         frame = np.asanyarray(color_frame.get_data())
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-
+        #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         # Grayscale (better for edge detection)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
