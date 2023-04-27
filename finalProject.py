@@ -85,12 +85,16 @@ try:
         mask_white = cv2.inRange(hsv, hsv_white_lower, hsv_white_upper)
         # white countours
         white_contours, hierarchy = cv2.findContours(mask_white, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        tango.setTarget(BODY, speed)
+        tango.setTarget(MOTORS, turnSpeed)
+
         for contour in white_contours:
             area = cv2.contourArea(contour)
             if area > 5000:
                 print("White binder detected, turning left")
-                tango.setTarget(MOTORS, 6900)
-                tango.setTarget(BODY, 5250)
+                speed = 6900
+                turnSpeed = 5100
                 break
 
         # blue contours
@@ -106,36 +110,37 @@ try:
             # forward if the blue object is in center of frame
             if cx >= 250 and cx <= 350:
                 print("Green paper centered, moving forward")
-                tango.setTarget(BODY, 5200)
+                speed = 5200
                 # check if robot within threshold distance of blue paper
                 distance = get_distance_to_blue_paper(cx, cy, depth_frame)  # Use depth_frame to calculate distance
                 if distance <= threshold_distance:
                     print("Reached green paper, stopping")
-                    tango.setTarget(BODY, 6000)
+                    speed = 6000
                     break
             # Otherwise, turn the robot left or right to look for the blue object
             elif cx < 250:
                 print("Green paper not centered, turning right")
-                tango.setTarget(MOTORS, 5100)
+                turnSpeed = 5100
             elif cx > 350:
                 print("Green paper not centered, turning left")
-                tango.setTarget(MOTORS, 6900)
+                turnSpeed = 6900
 
             # blue/white contours
             cv2.drawContours(frame, contours, -1, (255, 0, 0), 2)
             cv2.drawContours(frame, white_contours, -1, (0, 255, 255), 2)
 
-
+            cv2.imshow('contours', frame)
         else:
-            tango.setTarget(MOTORS, 6900)
+            turnSpeed= 6900
             # Exit with 'q'
 
-            cv2.imshow('contours', frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                tango.setTarget(BODY, 6000)
-                tango.setTarget(MOTORS, 6000)
-                break
 
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
+
+            break
+        tango.setTarget(MOTORS, speed)
 finally:
 # Stop streaming
     tango.setTarget(BODY, 6000)
