@@ -80,7 +80,7 @@ try:
             if ids[0] == 22:
                 print("found maker 22")
         else:
-            turnSpeed = 5100
+            turnSpeed = 5050
     
         tango.setTarget(TURN, turnSpeed)
 
