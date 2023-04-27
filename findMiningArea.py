@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 
 class FindMiningArea(State):
+    
     def __init__(self) -> None:
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
@@ -11,7 +12,7 @@ class FindMiningArea(State):
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
-        corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.aruco_dict)
+        corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
         
         depthToMine = None
 
