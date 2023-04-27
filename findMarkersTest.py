@@ -78,11 +78,11 @@ try:
 
         if ids:
             turnSpeed = 6000
-            print(ids)
-            print(type(ids[0]))
             for i in range(len(ids)):
-                nameOfMarker = arucoNumMeaning[int(ids[i])]
-                box = corners[i]
+                id = int(ids[i])
+                nameOfMarker = arucoNumMeaning[id]
+                box = corners[id]
+                print(box)
                 depthToMarker = depth_frame.get_distance(int(
                 box[0]+box[2]/2), int(box[1]+box[3]/2)) 
                 
