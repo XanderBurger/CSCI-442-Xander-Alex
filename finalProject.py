@@ -138,9 +138,8 @@ try:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             tango.setTarget(BODY, 6000)
             tango.setTarget(MOTORS, 6000)
-
             break
-        tango.setTarget(MOTORS, speed)
+
 finally:
 # Stop streaming
     tango.setTarget(BODY, 6000)
