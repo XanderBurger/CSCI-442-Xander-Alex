@@ -1,4 +1,3 @@
-
 from findMiningArea import FindMiningArea
 
 class StateMachine:
