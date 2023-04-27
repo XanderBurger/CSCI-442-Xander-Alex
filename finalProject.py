@@ -126,7 +126,8 @@ try:
             cv2.drawContours(frame, white_contours, -1, (0, 255, 255), 2)
 
             cv2.imshow('contours', frame)
-
+        else:
+            tango.setTarget(MOTORS, 6000)
             # Exit with 'q'
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 tango.setTarget(BODY, 6000)
