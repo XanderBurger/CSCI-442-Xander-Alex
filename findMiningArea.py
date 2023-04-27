@@ -29,6 +29,7 @@ class FindMiningArea(State):
                         continue
                     print("depth to marker ->", depthToMine)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
+                    nextState = "MINING AREA"
                 else:
                     # turnSpeed = 5100
                     print("not mining area")
