@@ -77,9 +77,10 @@ try:
         corners, ids, rejected = cv2.aruco.detectMarkers(frame, aruco_dict)
         if ids:
             turnSpeed = 6000
-            print("found maker 22")
+            if ids[0] == 22:
+                print("found maker 22")
         else:
-            turnSpeed = 5000
+            turnSpeed = 5200
     
         tango.setTarget(TURN, turnSpeed)
 
