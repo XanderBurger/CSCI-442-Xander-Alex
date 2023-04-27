@@ -1,5 +1,7 @@
 
 class State:
+    def __init__(self) -> None:
+        pass
 
     def enterState(self, tango):
         pass
