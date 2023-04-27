@@ -97,7 +97,7 @@ try:
                     depthToFrontWall = depthToFrontWall
                 elif nameOfMarker == "STARTING AREA":
                     depthToBackWall = depthToMarker
-        finally:
+        except:
            # turnSpeed = 5050
             print("NO MARKER FOUND")
     
