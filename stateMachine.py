@@ -1,11 +1,11 @@
-import findMiningArea
+from findMiningArea import FindMiningArea
 
 class StateMachine:
 
     def __init__(self, startingState) -> None:
         self.CURRENT_STATE = startingState
         self.states = {
-            "FIND MINE": findMiningArea.FindMiningArea()
+            "FIND MINE": FindMiningArea()
         }
 
     def process(self, tango, color_frame, depth_frame) -> None:

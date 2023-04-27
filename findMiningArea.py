@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 
 class FindMiningArea(State):
-    
     def __init__(self) -> None:
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
@@ -36,7 +35,7 @@ class FindMiningArea(State):
         except:
             # turnSpeed = 5050
             print("NO MARKER FOUND")
-            
+
         tango.controller.setTarget(1, turnSpeed)
 
         return nextState
