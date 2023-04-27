@@ -1,7 +1,7 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
-
+from maestro import Controller
 # Configure depth and color stream
 pipeline = rs.pipeline()
 config = rs.config()
