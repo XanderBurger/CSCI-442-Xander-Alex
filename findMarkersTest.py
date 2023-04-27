@@ -83,9 +83,9 @@ try:
                 nameOfMarker = arucoNumMeaning[id]
                 box = corners[i][0]
                 print(box)
-                print(type(box[0]))
+                print(type(box[0].x))
                 depthToMarker = depth_frame.get_distance(int(
-                box[0]+box[2]/2), int(box[1]+box[3]/2)) 
+                box[0].x), int(box[0].y)) 
                 
                 print("found", nameOfMarker)
                 cv2.rectangle(color_image, box[0], box[2], (255, 255, 0))
