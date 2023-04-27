@@ -85,8 +85,9 @@ try:
                 box = corners[i][0]
                 print(box)
                 print(box[0][0])
-                depthToMarker = depth_frame.get_distance(int(
-                box[0][0]), int(box[0][1])) 
+                centerX = int((box[0][0] + box[1][0]) / 2)
+                centerY = int((box[1][1] + box[3][1]) / 2)
+                depthToMarker = depth_frame.get_distance(centerX, centerY)
                 print("depth to marker ->", depthToMarker)
                 
                 #cv2.rectangle(color_image, int(box[0][0], box[0][1]), int(box[3][0], box[3][1]), (0, 255, 0), 3, 1)
@@ -97,7 +98,7 @@ try:
                 elif nameOfMarker == "STARTING AREA":
                     depthToBackWall = depthToMarker
         else:
-            turnSpeed = 5050
+           # turnSpeed = 5050
             print("NO MARKER FOUND")
     
         tango.setTarget(TURN, turnSpeed)
