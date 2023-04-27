@@ -79,6 +79,7 @@ try:
         if ids:
             turnSpeed = 6000
             print(ids)
+            print(type(ids[0]))
             for i in range(len(ids)):
                 nameOfMarker = arucoNumMeaning[ids[i]]
                 box = corners[i]
