@@ -76,7 +76,7 @@ try:
         depthToBackWall = None
         depthToFrontWall = None
 
-        if ids.any():
+        try:
             turnSpeed = 6000
             for i in range(len(ids)):
                 id = int(ids[i])
@@ -97,7 +97,7 @@ try:
                     depthToFrontWall = depthToFrontWall
                 elif nameOfMarker == "STARTING AREA":
                     depthToBackWall = depthToMarker
-        else:
+        finally:
            # turnSpeed = 5050
             print("NO MARKER FOUND")
     
