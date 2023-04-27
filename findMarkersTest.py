@@ -95,7 +95,7 @@ try:
                 if nameOfMarker == "MINING AREA":
                     depthToFrontWall = depthToFrontWall
                 elif nameOfMarker == "STARTING AREA":
-                    depthToBackWall = depthToMarker 
+                    depthToBackWall = depthToMarker
         else:
             turnSpeed = 5050
             print("NO MARKER FOUND")
