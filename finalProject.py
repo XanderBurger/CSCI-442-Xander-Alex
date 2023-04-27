@@ -125,14 +125,15 @@ try:
             cv2.drawContours(frame, contours, -1, (255, 0, 0), 2)
             cv2.drawContours(frame, white_contours, -1, (0, 255, 255), 2)
 
-            cv2.imshow('contours', frame)
+
         else:
+            cv2.imshow('contours', frame)
             tango.setTarget(MOTORS, 6900)
             # Exit with 'q'
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                tango.setTarget(BODY, 6000)
-                tango.setTarget(MOTORS, 6000)
-                break
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            tango.setTarget(BODY, 6000)
+            tango.setTarget(MOTORS, 6000)
+            break
 
 finally:
 # Stop streaming
