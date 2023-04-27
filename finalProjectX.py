@@ -1,8 +1,7 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
-from maestro import Controller
-
+from miningTango import MiningTango
 
 ################################################
 #              setting up pipeline
@@ -35,8 +34,7 @@ else:
 # Start streaming
 pipeline.start(config)
 
-align_to = rs.stream.color
-align = rs.align(align_to)
+rs.align(rs.stream.color)
 
 width = 640
 height = 480
@@ -45,16 +43,9 @@ height = 480
 #              Tango Settings
 ################################################
 
-tango = Controller()
+tango = MiningTango("FIND MINE")
 FORWARD = 0
 TURN = 1
-speed = 6000
-turnSpeed = 6000
-
-arucoNumMeaning = {
-    22: "MINING AREA",
-    49: "STARTING AREA"
-}
 
 aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
@@ -70,40 +61,17 @@ try:
             continue
 
         color_image = np.asanyarray(color_frame.get_data())
-  
-        corners, ids, rejected = cv2.aruco.detectMarkers(color_image, aruco_dict)
-        
-        depthToBackWall = None
-        depthToFrontWall = None
 
-        if ids:
-            turnSpeed = 6000
-            for i in range(len(ids)):
-                nameOfMarker = arucoNumMeaning[ids[i]]
-                box = corners[i]
-                depthToMarker = depth_frame.get_distance(int(
-                box[0]+box[2]/2), int(box[1]+box[3]/2)) 
-                
-                print("found", nameOfMarker)
-                cv2.rectangle(color_image, box[0], box[2], (255, 255, 0))
-                print("depth to marker ->", depthToMarker)
-                if nameOfMarker == "MINING AREA":
-                    depthToFrontWall = depthToFrontWall
-                elif nameOfMarker == "STARTING AREA":
-                    depthToBackWall = depthToMarker 
-        else:
-            turnSpeed = 5050
-            print("NO MARKER FOUND")
-    
-        tango.setTarget(TURN, turnSpeed)
+        tango.process(color_image, depth_frame)
+
         cv2.imshow('Original Frame', color_image)
 
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            tango.setTarget(FORWARD, 6000)
-            tango.setTarget(TURN, 6000)
+            tango.controller.setTarget(FORWARD, 6000)
+            tango.controller.setTarget(TURN, 6000)
             break
 finally:
-    tango.setTarget(FORWARD, 6000)
-    tango.setTarget(TURN, 6000)
+    tango.controller.setTarget(FORWARD, 6000)
+    tango.controller.setTarget(TURN, 6000)
     pipeline.stop()

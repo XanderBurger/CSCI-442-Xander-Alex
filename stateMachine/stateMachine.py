@@ -1,24 +1,18 @@
-from stateForward import Forward
-from stateStop import Stop
-from stateLeft import Left
-from stateRight import Right
 
+from findMiningArea import FindMiningArea
 
 class StateMachine:
 
-    def __init__(self) -> None:
-        self.CURRENT_STATE = "STOP"
+    def __init__(self, startingState) -> None:
+        self.CURRENT_STATE = startingState
         self.states = {
-            "FORWARD": Forward(),
-            "STOP": Stop(),
-            "LEFT": Left(),
-            "RIGHT": Right()
+            "FIND MINE": FindMiningArea()
         }
 
-    def process(self, centerOfGravity: float, center: tuple) -> None:
+    def process(self, tango, color_frame, depth_frame) -> None:
 
-        state = self.states[self.CURRENT_STATE].process(
-            centerOfGravity, center)
+        state = self.states[self.CURRENT_STATE].process(self, tango,
+            color_frame, depth_frame)
 
         if (state):
             self.changeState(state)
