@@ -83,15 +83,10 @@ try:
                 nameOfMarker = arucoNumMeaning[id]
                 print("found", nameOfMarker)
                 box = corners[i][0]
-                print(box)
-                print(box[0][0])
                 centerX = int((box[0][0] + box[1][0]) / 2)
                 centerY = int((box[1][1] + box[3][1]) / 2)
                 depthToMarker = depth_frame.get_distance(centerX, centerY)
                 print("depth to marker ->", depthToMarker)
-                
-                #cv2.rectangle(color_image, int(box[0][0], box[0][1]), int(box[3][0], box[3][1]), (0, 255, 0), 3, 1)
-                
                 cv2.aruco.drawDetectedMarkers(color_image, corners)
                 if nameOfMarker == "MINING AREA":
                     depthToFrontWall = depthToFrontWall
