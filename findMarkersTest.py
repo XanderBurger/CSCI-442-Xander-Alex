@@ -76,7 +76,7 @@ try:
         depthToBackWall = None
         depthToFrontWall = None
 
-        if len(ids) > 0:
+        if ids:
             turnSpeed = 6000
             for i in range(len(ids)):
                 id = int(ids[i])
