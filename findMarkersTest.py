@@ -83,7 +83,7 @@ try:
                 nameOfMarker = arucoNumMeaning[id]
                 box = corners[i][0]
                 print(box)
-                print(type(box[0][0]))
+                print(box[0][0])
                 depthToMarker = depth_frame.get_distance(int(
                 box[0][0]), int(box[0][1])) 
                 
