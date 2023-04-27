@@ -81,8 +81,9 @@ try:
             for i in range(len(ids)):
                 id = int(ids[i])
                 nameOfMarker = arucoNumMeaning[id]
-                box = corners[i]
+                box = corners[i][0]
                 print(box)
+                print(type(box[0]))
                 depthToMarker = depth_frame.get_distance(int(
                 box[0]+box[2]/2), int(box[1]+box[3]/2)) 
                 
