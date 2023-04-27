@@ -105,20 +105,20 @@ try:
 
             # forward if the blue object is in center of frame
             if cx >= 250 and cx <= 350:
-                print("Blue paper centered, moving forward")
+                print("Green paper centered, moving forward")
                 tango.setTarget(BODY, 5200)
                 # check if robot within threshold distance of blue paper
                 distance = get_distance_to_blue_paper(cx, cy, depth_frame)  # Use depth_frame to calculate distance
                 if distance <= threshold_distance:
-                    print("Reached blue paper, stopping")
+                    print("Reached green paper, stopping")
                     tango.setTarget(BODY, 6000)
                     break
             # Otherwise, turn the robot left or right to look for the blue object
             elif cx < 250:
-                print("Blue paper not centered, turning right")
+                print("Green paper not centered, turning right")
                 tango.setTarget(MOTORS, 5100)
             elif cx > 350:
-                print("Blue paper not centered, turning left")
+                print("Green paper not centered, turning left")
                 tango.setTarget(MOTORS, 6900)
 
             # blue/white contours
@@ -127,14 +127,17 @@ try:
 
 
         else:
-            cv2.imshow('contours', frame)
             tango.setTarget(MOTORS, 6900)
             # Exit with 'q'
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            tango.setTarget(BODY, 6000)
-            tango.setTarget(MOTORS, 6000)
-            break
+
+            cv2.imshow('contours', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                tango.setTarget(BODY, 6000)
+                tango.setTarget(MOTORS, 6000)
+                break
 
 finally:
 # Stop streaming
+    tango.setTarget(BODY, 6000)
+    tango.setTarget(MOTORS, 6000)
     pipeline.stop()
