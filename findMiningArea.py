@@ -18,7 +18,7 @@ class FindMiningArea(State):
 
         try:
             turnSpeed = 6000
-            for i in range(len):
+            for i in range(len(ids)):
                 if int(ids[i]) == 22:
                     print("found mine")
                     box = corners[i][0]
