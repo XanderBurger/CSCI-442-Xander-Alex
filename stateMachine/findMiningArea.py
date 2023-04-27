@@ -36,7 +36,7 @@ class FindMiningArea(State):
         except:
             # turnSpeed = 5050
             print("NO MARKER FOUND")
-    
+            
         tango.controller.setTarget(1, turnSpeed)
 
         return nextState
