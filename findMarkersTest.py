@@ -88,7 +88,7 @@ try:
                 box[0][0]), int(box[0][1])) 
                 
                 print("found", nameOfMarker)
-                cv2.rectangle(color_image, box[0], box[2], (255, 255, 0))
+                cv2.rectangle(color_image, box[0], box[2], (255, 255, 0), 3)
                 print("depth to marker ->", depthToMarker)
                 if nameOfMarker == "MINING AREA":
                     depthToFrontWall = depthToFrontWall
