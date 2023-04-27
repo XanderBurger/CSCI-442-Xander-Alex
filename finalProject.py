@@ -76,63 +76,63 @@ try:
         lower_green = np.array([60, 100, 100])
         upper_green = np.array([100, 255, 255])
 
-    # mask for blue or green color
-    mask = cv2.inRange(hsv, lower_green, upper_green)
+        # mask for blue or green color
+        mask = cv2.inRange(hsv, lower_green, upper_green)
 
-    # check for white binders
-    hsv_white_lower = np.array([0, 0, 180])
-    hsv_white_upper = np.array([255, 20, 255])
-    mask_white = cv2.inRange(hsv, hsv_white_lower, hsv_white_upper)
-    # white countours
-    white_contours, hierarchy = cv2.findContours(mask_white, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    for contour in white_contours:
-        area = cv2.contourArea(contour)
-        if area > 5000:
-            print("White binder detected, turning left")
-            tango.setTarget(turnspeed, 6900)
-            tango.setTarget(speed, 5250)
-            break
-
-    # blue contours
-    contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-    if len(contours) > 0:
-        # moments/center
-        c = max(contours, key=cv2.contourArea)
-        M = cv2.moments(c)
-        cx = int(M["m10"] / M["m00"])
-        cy = int(M["m01"] / M["m00"])
-
-        # forward if the blue object is in center of frame
-        if cx >= 250 and cx <= 350:
-            print("Blue paper centered, moving forward")
-            tango.setTarget(BODY, forwardSpeed)
-            # check if robot within threshold distance of blue paper
-            distance = get_distance_to_blue_paper(cx, cy, depth_frame)  # Use depth_frame to calculate distance
-            if distance <= threshold_distance:
-                print("Reached blue paper, stopping")
-                tango.setTarget(speed, 6000)
+        # check for white binders
+        hsv_white_lower = np.array([0, 0, 180])
+        hsv_white_upper = np.array([255, 20, 255])
+        mask_white = cv2.inRange(hsv, hsv_white_lower, hsv_white_upper)
+        # white countours
+        white_contours, hierarchy = cv2.findContours(mask_white, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        for contour in white_contours:
+            area = cv2.contourArea(contour)
+            if area > 5000:
+                print("White binder detected, turning left")
+                tango.setTarget(turnspeed, 6900)
+                tango.setTarget(speed, 5250)
                 break
-        # Otherwise, turn the robot left or right to look for the blue object
-        elif cx < 250:
-            print("Blue paper not centered, turning right")
-            tango.setTarget(turnspeed, 5100)
-        elif cx > 350:
-            print("Blue paper not centered, turning left")
-            tango.setTarget(turnspeed, 6900)
 
-        # blue/white contours
-        cv2.drawContours(frame, contours, -1, (255, 0, 0), 2)
-        cv2.drawContours(frame, white_contours, -1, (0, 255, 255), 2)
+        # blue contours
+        contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        cv2.imshow('contours', frame)
+        if len(contours) > 0:
+            # moments/center
+            c = max(contours, key=cv2.contourArea)
+            M = cv2.moments(c)
+            cx = int(M["m10"] / M["m00"])
+            cy = int(M["m01"] / M["m00"])
 
-        # Exit with 'q'
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            tango.setTarget(BODY, 6000)
-            tango.setTarget(MOTORS, 6000)
-            break
+            # forward if the blue object is in center of frame
+            if cx >= 250 and cx <= 350:
+                print("Blue paper centered, moving forward")
+                tango.setTarget(BODY, forwardSpeed)
+                # check if robot within threshold distance of blue paper
+                distance = get_distance_to_blue_paper(cx, cy, depth_frame)  # Use depth_frame to calculate distance
+                if distance <= threshold_distance:
+                    print("Reached blue paper, stopping")
+                    tango.setTarget(speed, 6000)
+                    break
+            # Otherwise, turn the robot left or right to look for the blue object
+            elif cx < 250:
+                print("Blue paper not centered, turning right")
+                tango.setTarget(turnspeed, 5100)
+            elif cx > 350:
+                print("Blue paper not centered, turning left")
+                tango.setTarget(turnspeed, 6900)
+
+            # blue/white contours
+            cv2.drawContours(frame, contours, -1, (255, 0, 0), 2)
+            cv2.drawContours(frame, white_contours, -1, (0, 255, 255), 2)
+
+            cv2.imshow('contours', frame)
+
+            # Exit with 'q'
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                tango.setTarget(BODY, 6000)
+                tango.setTarget(MOTORS, 6000)
+                break
 
 finally:
 # Stop streaming
-pipeline.stop()
+    pipeline.stop()
