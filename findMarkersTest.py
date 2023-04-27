@@ -88,7 +88,7 @@ try:
                 box[0][0]), int(box[0][1])) 
                 
                 print("found", nameOfMarker)
-                cv2.rectangle(color_image, int(box[0][0], box[0][1]), int(box[3][0]), box[3][1]), (0, 255, 0), 3, 1)
+                cv2.rectangle(color_image, int(box[0][0], box[0][1]), int(box[3][0], box[3][1]), (0, 255, 0), 3, 1)
                 print("depth to marker ->", depthToMarker)
                 #cv2.aruco.drawDetectedMarkers()
                 if nameOfMarker == "MINING AREA":
