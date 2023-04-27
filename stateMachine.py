@@ -10,7 +10,7 @@ class StateMachine:
 
     def process(self, tango, color_frame, depth_frame) -> None:
 
-        state = self.states[self.CURRENT_STATE].process(self, tango,
+        state = self.states[self.CURRENT_STATE].process(tango,
             color_frame, depth_frame)
 
         if (state):
