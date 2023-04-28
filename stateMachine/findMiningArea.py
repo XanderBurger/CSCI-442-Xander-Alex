@@ -55,8 +55,8 @@ class FindMiningArea(State):
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
 
-        # tango.controller.setTarget(self.TURN, self.turnSpeed)
-        # tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        tango.controller.setTarget(self.TURN, self.turnSpeed)
+        tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
 
         return nextState
     
