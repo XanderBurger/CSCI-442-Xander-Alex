@@ -1,9 +1,9 @@
-from state import State
+from stateMachine import state
 import cv2
 import numpy as np
 
 
-class MiningArea(State):
+class MiningArea(state.State):
     def __init__(self) -> None:
         pass
 
