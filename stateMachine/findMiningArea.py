@@ -16,6 +16,8 @@ class FindMiningArea(State):
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
         depthToMine = None
         sleepTime = 0
+    
+            
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 22:
@@ -57,19 +59,19 @@ class FindMiningArea(State):
         
         except TypeError:
             sleepTime = 2
-            self.turnSpeed = 5100
+            self.turnSpeed = 5150
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
-
+        
+        if sleepTime > 0:
+            time.sleep(sleepTime)
+           
+            
         
         tango.controller.setTarget(self.TURN, self.turnSpeed)
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         
-        # if sleepTime > 0:
-        #     time.sleep(sleepTime)
-        #     tango.controller.setTarget(self.TURN, 6000)
-        #     tango.controller.setTarget(self.FORWARD, 6000)
-            
+       
 
         return nextState
     
