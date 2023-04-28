@@ -2,11 +2,10 @@ from stateMachine.miningState import MiningState
 from stateMachine.findMiningArea import FindMiningArea
 
 class StateMachine:
-
     def __init__(self, startingState) -> None:
         self.states = {
             "FIND MINE": FindMiningArea(),
-            "MINING AREA": MiningState(),
+            "MINING AREA": MiningState()
         }
         self.currentState = self.states[startingState]
 
