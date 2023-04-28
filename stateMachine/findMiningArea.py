@@ -5,7 +5,7 @@ import numpy as np
 class FindMiningArea(State):
     
     def __init__(self) -> None:
-        super.__init__(self)
+        super().__init__()
 
     def enterState(self, tango):
         pass
