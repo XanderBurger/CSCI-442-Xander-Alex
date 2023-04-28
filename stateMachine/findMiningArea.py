@@ -8,6 +8,7 @@ class FindMiningArea(State):
     def __init__(self) -> None:
         super().__init__()
 
+
     def enterState(self, tango):
         pass
     
@@ -17,7 +18,6 @@ class FindMiningArea(State):
         depthToMine = None
         sleepTime = 0
     
-            
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 22:
@@ -59,7 +59,7 @@ class FindMiningArea(State):
         
         except TypeError:
             sleepTime = 2
-            self.turnSpeed = 5125
+            self.turnSpeed = 5100
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
