@@ -30,10 +30,10 @@ class FindMiningArea(State):
 
                     if centerX >= 400:
                         print("Turn Right")
-                        self.turnSpeed = 5300
+                        self.turnSpeed = 5100
                     elif centerX <= 200:
                         print("Turn Left")
-                        self.turnSpeed = 6600
+                        self.turnSpeed = 6900
                     elif centerX < 400 and centerX > 200:
                         if depthToMine > 1:
                             self.forwardSpeed = 5100
@@ -44,7 +44,7 @@ class FindMiningArea(State):
                             nextState = "MINING AREA"
                     
                     print("Depth to marker ->", depthToMine)
-
+                    cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
 
                 else:
