@@ -1,7 +1,11 @@
+import cv2
+import numpy as np
 
 class State:
     def __init__(self) -> None:
-        pass
+        self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
+        self.forwardSpeed = 6000
+        self.turnSpeed = 6000
 
     def enterState(self, tango):
         pass

@@ -5,9 +5,7 @@ import numpy as np
 class FindMiningArea(State):
     
     def __init__(self) -> None:
-        self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
-        self.forwardSpeed = 6000
-        self.turnSpeed = 6000
+        super.__init__()
 
     def enterState(self, tango):
         pass
@@ -39,6 +37,10 @@ class FindMiningArea(State):
                     elif centerX < 350 and centerX > 250:
                         if depthToMine < 1.5:
                             self.forwardSpeed = 5100
+                        else:
+                            self.forwardSpeed = 6000
+                            print("found Mine")
+                            nextState = "MINING AREA"
                     
                     print("Depth to marker ->", depthToMine)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
@@ -47,7 +49,7 @@ class FindMiningArea(State):
                     self.turnSpeed = 5050
                     self.forwardSpeed = 6000
                     print("not mining area")
-                    
+
         except:
             self.turnSpeed = 5050
             self.forwardSpeed = 6000
