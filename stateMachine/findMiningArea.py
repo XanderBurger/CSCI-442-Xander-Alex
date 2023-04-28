@@ -65,10 +65,10 @@ class FindMiningArea(State):
         tango.controller.setTarget(self.TURN, self.turnSpeed)
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         
-        if sleepTime > 0:
-            time.sleep(sleepTime)
-            tango.controller.setTarget(self.TURN, 6000)
-            tango.controller.setTarget(self.FORWARD, 6000)
+        # if sleepTime > 0:
+        #     time.sleep(sleepTime)
+        #     tango.controller.setTarget(self.TURN, 6000)
+        #     tango.controller.setTarget(self.FORWARD, 6000)
             
 
         return nextState
