@@ -9,6 +9,12 @@ class State:
         self.forwardSpeed = 6000
         self.turnSpeed = 6000
 
+    # def rampSpeedUp(self, speed, maxSpeed) -> int:
+    #     if speed < maxSpeed:
+    #         speed += 25
+        
+    #     return speed
+
     def enterState(self, tango):
         pass
 
