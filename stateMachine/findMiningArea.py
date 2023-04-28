@@ -14,8 +14,7 @@ class FindMiningArea(State):
         nextState = None
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
         depthToMine = None
-        self.turnSpeed = 6000
-
+        
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 22:
@@ -39,6 +38,7 @@ class FindMiningArea(State):
                     elif centerX < 400 and centerX > 200:
                         if depthToMine > 1:
                             self.forwardSpeed = 5100
+                            self.turnSpeed = 6000
                         else:
                             self.forwardSpeed = 6000
                             self.turnSpeed = 6000
