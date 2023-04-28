@@ -28,17 +28,18 @@ class FindMiningArea(State):
                         self.forwardSpeed = 6000
                         continue
 
-                    if centerX >= 400:
+                    if centerX >= 350:
                         print("Turn Right")
                         self.turnSpeed = 5300
-                    elif centerX <= 200:
+                    elif centerX <= 250:
                         print("Turn Left")
                         self.turnSpeed = 6600
-                    elif centerX < 400 and centerX > 200:
+                    elif centerX < 350 and centerX > 250:
                         if depthToMine > 1:
                             self.forwardSpeed = 5100
                         else:
                             self.forwardSpeed = 6000
+                            self.turnSpeed = 6000
                             print("found Mine")
                             nextState = "MINING AREA"
                     
