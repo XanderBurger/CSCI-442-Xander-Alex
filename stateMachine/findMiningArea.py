@@ -49,13 +49,15 @@ class FindMiningArea(State):
                     self.turnSpeed = 5050
                     self.forwardSpeed = 6000
                     print("not mining area")
-
-        except:
+        except TypeError:
             self.turnSpeed = 5050
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
 
-        tango.controller.setTarget(1, self.turnSpeed)
-        tango.controller.setTarget(0, self.forwardSpeed)
+        tango.controller.setTarget(self.TURN, self.turnSpeed)
+        tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
 
         return nextState
+    
+    def exitState(self, tango):
+        pass
