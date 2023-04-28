@@ -40,7 +40,7 @@ class FindMiningArea(State):
                         self.turnSpeed = 6900
                     elif centerX < 400 and centerX > 200:
                         if depthToMine > 1:
-                            self.forwardSpeed = 5100
+                            self.forwardSpeed = 4900
                             self.turnSpeed = 6000
                         else:
                             self.forwardSpeed = 6000
