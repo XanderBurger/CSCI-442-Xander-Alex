@@ -128,6 +128,7 @@ try:
             # blue/white contours
             cv2.drawContours(frame, contours, -1, (255, 0, 0), 2)
             cv2.drawContours(frame, white_contours, -1, (0, 255, 255), 2)
+            cv2.circle(frame, (cx,cy), 4, (0,255,0), 2)
 
             cv2.imshow('contours', frame)
         else:
