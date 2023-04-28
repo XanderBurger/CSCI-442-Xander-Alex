@@ -5,8 +5,8 @@ import numpy as np
 
 class MiningState(State):
     def __init__(self) -> None:
-        super.__init__()
-        
+        super.__init__(self)
+
     def enterState(self, tango):
         pass
 

@@ -5,7 +5,7 @@ import numpy as np
 class FindMiningArea(State):
     
     def __init__(self) -> None:
-        super.__init__()
+        super.__init__(self)
 
     def enterState(self, tango):
         pass
@@ -49,13 +49,14 @@ class FindMiningArea(State):
                     self.turnSpeed = 5050
                     self.forwardSpeed = 6000
                     print("not mining area")
+        
         except TypeError:
             self.turnSpeed = 5050
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
 
-        tango.controller.setTarget(self.TURN, self.turnSpeed)
-        tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        # tango.controller.setTarget(self.TURN, self.turnSpeed)
+        # tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
 
         return nextState
     
