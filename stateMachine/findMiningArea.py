@@ -48,7 +48,7 @@ class FindMiningArea(State):
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
 
                 else:
-                    self.turnSpeed = 5150
+                    self.turnSpeed = 5100
                     self.forwardSpeed = 6000
                     print("not mining area")
         
