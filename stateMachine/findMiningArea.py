@@ -1,6 +1,7 @@
 from stateMachine.state import State
 import cv2
 import numpy as np
+import time
 
 class FindMiningArea(State):
     
@@ -14,7 +15,7 @@ class FindMiningArea(State):
         nextState = None
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
         depthToMine = None
-        
+        sleepTime = 0
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 22:
@@ -49,18 +50,25 @@ class FindMiningArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
 
-                else:
-                    self.turnSpeed = 5200
-                    self.forwardSpeed = 6000
-                    print("not mining area")
+                # else:
+                #     self.turnSpeed = 5200
+                #     self.forwardSpeed = 6000
+                #     print("not mining area")
         
         except TypeError:
+            sleepTime = 2
             self.turnSpeed = 5200
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
 
+        
         tango.controller.setTarget(self.TURN, self.turnSpeed)
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        
+        if sleepTime:
+            tango.controller.setTarget(self.TURN, 6000)
+            tango.controller.setTarget(self.FORWARD, 6000)
+            time.sleep(sleepTime)
 
         return nextState
     
