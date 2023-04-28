@@ -104,8 +104,9 @@ try:
             # moments/center
             c = max(contours, key=cv2.contourArea)
             M = cv2.moments(c)
-            cx = int(M["m10"] / M["m00"])
-            cy = int(M["m01"] / M["m00"])
+            if  M["m00"] > 0:
+                cx = int(M["m10"] / M["m00"])
+                cy = int(M["m01"] / M["m00"])
 
             # forward if the blue object is in center of frame
             if cx >= 250 and cx <= 350:
