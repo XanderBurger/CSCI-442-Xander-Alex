@@ -28,13 +28,13 @@ class FindMiningArea(State):
                         self.forwardSpeed = 6000
                         continue
 
-                    if centerX >= 350:
+                    if centerX >= 400:
                         print("Turn Right")
-                        self.turnSpeed = 5100
-                    elif centerX <= 250:
+                        self.turnSpeed = 5400
+                    elif centerX <= 200:
                         print("Turn Left")
-                        self.turnSpeed = 6900
-                    elif centerX < 350 and centerX > 250:
+                        self.turnSpeed = 6500
+                    elif centerX < 400 and centerX > 200:
                         if depthToMine < 1.5:
                             self.forwardSpeed = 5100
                         else:
