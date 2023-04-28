@@ -59,7 +59,7 @@ class FindMiningArea(State):
         
         except TypeError:
             sleepTime = 2
-            self.turnSpeed = 5150
+            self.turnSpeed = 5125
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
