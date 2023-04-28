@@ -1,12 +1,12 @@
-from stateMachine import miningState
-from stateMachine import findMiningArea
+from stateMachine.miningState import MiningState
+from stateMachine.findMiningArea import FindMiningArea
 
 class StateMachine:
 
     def __init__(self, startingState) -> None:
         self.states = {
-            "FIND MINE": findMiningArea.FindMiningArea(),
-            "MINING AREA": miningState.MiningArea(),
+            "FIND MINE": FindMiningArea(),
+            "MINING AREA": MiningState(),
         }
         self.currentState = self.states[startingState]
 

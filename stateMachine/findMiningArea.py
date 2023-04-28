@@ -1,8 +1,8 @@
-from stateMachine import state
+from stateMachine.state import State
 import cv2
 import numpy as np
 
-class FindMiningArea(state.State):
+class FindMiningArea(State):
     
     def __init__(self) -> None:
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
