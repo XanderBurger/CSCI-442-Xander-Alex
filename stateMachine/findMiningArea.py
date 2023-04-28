@@ -63,8 +63,8 @@ class FindMiningArea(State):
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
-        if sleepTime > 0:
-            time.sleep(sleepTime)
+        # if sleepTime > 0:
+        #     time.sleep(sleepTime)
            
             
         
