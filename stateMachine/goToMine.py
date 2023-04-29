@@ -16,7 +16,7 @@ class GoToMine(State):
         orangeBinary = cv2.inRange(hsv_frame, tango.orangeLower, tango.orangeUpper)
         orangeContours, orangeHierarchy = cv2.findContours(orangeBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         cv2.drawContours(color_frame, orangeContours, -1, (255, 0 ,255), 2)
-        self.forwardSpeed = 5200  
+        self.forwardSpeed = 5100  
         if len(orangeContours) > 0:
             ocMax = max(orangeContours, key=cv2.contourArea)
             M = cv2.moments(ocMax)
