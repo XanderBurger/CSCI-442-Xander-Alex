@@ -82,10 +82,10 @@ try:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             tango.controller.setTarget(FORWARD, 6000)
             tango.controller.setTarget(TURN, 6000)
-            tango.controller.setTarget(HEADTILT, 6000)
+            tango.controller.setTarget(HEADTILT, 5000)
             break
 finally:
     tango.controller.setTarget(FORWARD, 6000)
     tango.controller.setTarget(TURN, 6000)
-    tango.controller.setTarget(HEADTILT, 6000)
+    tango.controller.setTarget(HEADTILT, 5000)
     pipeline.stop()
