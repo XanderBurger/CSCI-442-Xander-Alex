@@ -31,7 +31,6 @@ class MiningState(State):
         cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         for contours in yellowContours:
-            print('found yellow')
             M = cv2.moments(contours)
             if M["m00"] == 0:
                 continue
@@ -40,7 +39,6 @@ class MiningState(State):
             cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
         
         for contours in greenContours:
-            print('found green')
             M = cv2.moments(contours)
             if M["m00"] == 0:
                 continue
@@ -49,7 +47,6 @@ class MiningState(State):
             cv2.circle(color_frame, (cX, cY), 4, (0,255,0), 2)
 
         for contours in pinkContours:
-            print('found pink')
             M = cv2.moments(contours)
             if M["m00"] == 0:
                 continue
@@ -58,7 +55,6 @@ class MiningState(State):
             cv2.circle(color_frame, (cX, cY), 5, (50, 0 ,255), 2)
             
         for contours in orangeContours:
-            print('found orange')
             M = cv2.moments(contours)
             if M["m00"] == 0:
                 continue
@@ -67,7 +63,6 @@ class MiningState(State):
             cv2.circle(color_frame, (cX, cY), 5, (255, 0 ,255), 2)
     
         for contours in blueContours:
-            print('found blue')
             M = cv2.moments(contours)
             if M["m00"] == 0:
                 continue
