@@ -47,6 +47,16 @@ tango = MiningTango("MINING AREA")
 FORWARD = 0
 TURN = 1
 
+def get_hsv(self, event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        # Convert the image to HSV color space
+        hsv_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+        
+        # Get the HSV value of the pixel at the clicked coordinates
+        hsv_value = hsv_image[y, x]
+        
+        # Display the HSV value
+        print(f"HSV value at ({x}, {y}): {hsv_value}")
 
 try:
     while True:
@@ -63,7 +73,10 @@ try:
 
         tango.process(color_image, depth_frame)
 
+        cv2.setMouseCallback('Original Frame', get_hsv)
         cv2.imshow('Original Frame', color_image)
+
+        
 
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):

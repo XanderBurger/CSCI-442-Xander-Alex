@@ -11,6 +11,7 @@ class MiningState(State):
 
     def process(self, tango, color_frame, depth_frame):
         hsv_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
+        color_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
         yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
         greenBinary = cv2.inRange(hsv_frame, tango.greenLower, tango.greenUpper)
         pinkBinary = cv2.inRange(hsv_frame, tango.pinkLower, tango.pinkUpper)
@@ -22,7 +23,6 @@ class MiningState(State):
         pinkContours, pinkHierarchy = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         orangeContours, orangeHierarchy = cv2.findContours(orangeBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         blueContours, blueHierarchy = cv2.findContours(blueBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
 
         cv2.drawContours(color_frame, yellowContours, -1, (255,255,0), 2)
         cv2.drawContours(color_frame, greenContours, -1, (0,255,0), 2)
