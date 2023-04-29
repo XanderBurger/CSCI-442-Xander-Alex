@@ -49,7 +49,7 @@ HEADTURN = 3
 # Distance to stop
 threshold_distance = 0.25  # in meters
 threshold_distance_initial = 1.0  # in meters
-
+cv2.namedWindow('contours')
 
 def get_distance(cx, cy, depth_frame):
     # Get depth value at center of object
