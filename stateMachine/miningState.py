@@ -7,9 +7,10 @@ class MiningState(State):
         super().__init__()
 
     def enterState(self, tango):
-        pass
+        print("IN MINE")
 
     def process(self, tango, color_frame, depth_frame):
+        nextState = None
         hsv_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
 
         yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
@@ -69,6 +70,8 @@ class MiningState(State):
                 bcX = int(M["m10"] / M["m00"])
                 bcY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
+        
+        return nextState
 
     
     def exitState(self, tango):
