@@ -30,12 +30,13 @@ class MiningState(State):
         cv2.drawContours(color_frame, orangeContours, -1, (255, 0 ,255), 2)
         cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
-        ycMax = max(yellowContours, key=cv2.contourArea)
-        M = cv2.moments(ycMax)
-        if M["m00"] != 0:
-            ycX = int(M["m10"] / M["m00"])
-            ycY = int(M["m01"] / M["m00"])
-            cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
+        if len(yellowContours) > 0:
+            ycMax = max(yellowContours, key=cv2.contourArea)
+            M = cv2.moments(ycMax)
+            if M["m00"] != 0:
+                ycX = int(M["m10"] / M["m00"])
+                ycY = int(M["m01"] / M["m00"])
+                cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
         
         for contours in greenContours:
             M = cv2.moments(contours)
