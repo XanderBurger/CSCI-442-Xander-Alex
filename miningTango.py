@@ -18,8 +18,8 @@ class MiningTango:
         self.pinkLower = np.array([342,71,81])
         self.orangeUpper = np.array([33,64,99])
         self.orangeLower = np.array([27,82,82])
-        self.blueUpper = np.array([192,55,96])
-        self.blueLower = np.array([194,58,86])
+        self.blueUpper = np.array([87,39,253])
+        self.blueLower = np.array([97,247,198])
         
 
     def process(self, image_frame, depth_frame):
