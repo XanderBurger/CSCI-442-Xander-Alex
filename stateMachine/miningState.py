@@ -63,7 +63,7 @@ class MiningState(State):
             cv2.circle(color_frame, (cX, cY), 5, (255, 0 ,255), 2)
     
         if len(blueContours) > 0:
-            bcMax = max(yellowContours, key=cv2.contourArea)
+            bcMax = max(blueContours, key=cv2.contourArea)
             M = cv2.moments(bcMax)
             if M["m00"] != 0:
                 bcX = int(M["m10"] / M["m00"])
