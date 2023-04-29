@@ -3,7 +3,8 @@ from stateMachine.findMiningArea import FindMiningArea
 from stateMachine.goToMine import GoToMine
 
 class StateMachine:
-    def __init__(self, startingState) -> None:
+    def __init__(self, tango, startingState) -> None:
+        self.tango = tango
         self.states = {
             "FIND MINE": FindMiningArea(),
             "MINING AREA": MiningState(),
@@ -19,6 +20,6 @@ class StateMachine:
 
 
     def changeState(self, nextState):
-        self.currentState.exitState(self)
+        self.currentState.exitState(self.tango)
         self.currentState = self.states[nextState]
-        self.currentState.enterState(self)
+        self.currentState.enterState(self.tango)

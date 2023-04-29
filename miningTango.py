@@ -6,7 +6,7 @@ from stateMachine import stateMachine
 
 class MiningTango:
     def __init__(self, startingState) -> None:
-        self.stateMachine = stateMachine.StateMachine(startingState)
+        self.stateMachine = stateMachine.StateMachine(self, startingState)
         self.controller = Controller()
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
         
@@ -21,7 +21,7 @@ class MiningTango:
 
         self.orangeUpper = np.array([20,220,255])
         self.orangeLower = np.array([10,130,200])
-        
+
         self.blueUpper = np.array([100,255,255])
         self.blueLower = np.array([85,200,140])
         
