@@ -10,16 +10,16 @@ class MiningTango:
         self.controller = Controller()
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
         
-        self.yellowUpper = np.array([61,47,93])
-        self.yellowLower = np.array([62,54,84])
-        self.greenUpper = np.array([92,62,84])
-        self.greenLower = np.array([91,71,79])
-        self.pinkUpper = np.array([348,67,96])
-        self.pinkLower = np.array([342,71,81])
-        self.orangeUpper = np.array([33,64,99])
-        self.orangeLower = np.array([27,82,82])
-        self.blueUpper = np.array([100,240,240])
-        self.blueLower = np.array([80,50,110])
+        self.yellowUpper = np.array([40,240,200])
+        self.yellowLower = np.array([30,180,150])
+        self.greenUpper = np.array([65,200,220])
+        self.greenLower = np.array([55,140,180])
+        self.pinkUpper = np.array([175,200,255])
+        self.pinkLower = np.array([160,140,190])
+        self.orangeUpper = np.array([20,220,255])
+        self.orangeLower = np.array([10,130,200])
+        self.blueUpper = np.array([95,240,240])
+        self.blueLower = np.array([80,100,200])
         
 
     def process(self, image_frame, depth_frame):
