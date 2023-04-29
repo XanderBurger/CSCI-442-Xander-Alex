@@ -22,7 +22,7 @@ class KeyControl():
         self.turn = 6000
 
     def head(self, key):
-        print(key.keycode)
+        print(self.headTilt)
         if key.keycode == 38:
             self.headTurn += 200
             if (self.headTurn > 7900):
