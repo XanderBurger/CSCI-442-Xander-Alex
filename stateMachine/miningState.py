@@ -1,12 +1,14 @@
 from stateMachine.state import State
 import cv2
 import numpy as np
+import time
 
 class MiningState(State):
     def __init__(self) -> None:
         super().__init__()
 
     def enterState(self, tango):
+        time.sleep(1)
         tango.controller.setTarget(self.FORWARD, 6000)
         print("IN MINE")
 
