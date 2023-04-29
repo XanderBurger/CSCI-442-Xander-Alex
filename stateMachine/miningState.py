@@ -7,7 +7,9 @@ class MiningState(State):
         super().__init__()
 
     def enterState(self, tango):
+        tango.controller.setTarget(self.FORWARD, 6000)
         print("IN MINE")
+
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
