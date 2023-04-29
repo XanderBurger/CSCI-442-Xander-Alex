@@ -23,6 +23,7 @@ class GoToMine(State):
             if M["m00"] != 0:
                 ocX = int(M["m10"] / M["m00"])
                 ocY = int(M["m01"] / M["m00"])
+                print(ocY)
                 cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
 
                 if ocY < 50:
