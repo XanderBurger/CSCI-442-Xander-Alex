@@ -128,7 +128,8 @@ try:
 
 
 
-        elif len(green_contours) > 0:
+
+        if len(green_contours) > 0:
             # find the largest contour
             c = max(blue_contours, key=cv2.contourArea)
             M = cv2.moments(c)
@@ -156,7 +157,8 @@ try:
                         print("Green paper not centered, turning left")
                         turnSpeed = 6900
 
-                    cv2.drawContours(frame, green_contours, -1, (255, 0, 0), 2)
+                    cv2.drawContours(frame, green_contours, -1, (0, 255, 0), 2)
+
 
 
 
@@ -172,7 +174,7 @@ try:
         ##        else:
         ##            cx, cy = 0, 0 # set default values if no contours are detected
 
-        elif len(orange_contours) > 0:
+        if len(orange_contours) > 0:
             # find the largest contour
             c = max(blue_contours, key=cv2.contourArea)
             M = cv2.moments(c)
@@ -200,11 +202,14 @@ try:
                         print("Orange paper not centered, turning left")
                         turnSpeed = 6900
 
-                    cv2.drawContours(frame, green_contours, -1, (255, 0, 0), 2)
+                    cv2.drawContours(frame, green_contours, -1, (0, 0, 255), 2)
+
 
         else:
+            print("None Found, Turning")
             turnSpeed = 6900
 
+        cv2.imshow('contours', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             tango.setTarget(BODY, 6000)
             tango.setTarget(MOTORS, 6000)
