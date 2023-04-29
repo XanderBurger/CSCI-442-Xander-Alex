@@ -106,7 +106,7 @@ try:
             # check if the blue object is within threshold distance
             distance = get_distance(cx, cy, depth_frame)
             if distance <= threshold_distance_initial:
-                while True:
+
                     # check if the robot is within stop threshold distance
                     distance = get_distance(cx, cy, depth_frame)
                     if cx >= 250 and cx <= 350:
@@ -139,7 +139,7 @@ try:
             # check if the green object is within threshold distance
             distance = get_distance(cx, cy, depth_frame)
             if distance <= threshold_distance_initial:
-                while True:
+
                     # check if the robot is within stop threshold distance
                     distance = get_distance(cx, cy, depth_frame)
                     if cx >= 250 and cx <= 350:
