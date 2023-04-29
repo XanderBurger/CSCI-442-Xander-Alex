@@ -7,6 +7,7 @@ class GoToMine(State):
         super().__init__()
 
     def enterState(self, tango):
+        tango.controller.setTarget(self.TURN, 6000)
         print("GOING TO MINE")
 
     def process(self, tango, color_frame, depth_frame):
@@ -26,7 +27,7 @@ class GoToMine(State):
                 print(ocY)
                 cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
 
-                if ocY < 50:
+                if ocY < 5:
                     self.forwardSpeed = 6000
                     return "MINING AREA"
         
