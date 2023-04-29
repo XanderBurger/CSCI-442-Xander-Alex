@@ -9,13 +9,6 @@ class State:
         self.forwardSpeed = 6000
         self.turnSpeed = 6000
 
-        self.yellowUpper = np.array([61,92,96])
-        self.yellowLower = np.array([57,75,82])
-        self.greenUpper = np.array([89,87,94])
-        self.greenLower = np.array([86,69,78])
-        self.pinkUpper = np.array([322,90,96])
-        self.pinkLower = np.array([337,64,79])
-
 
     def enterState(self, tango):
         pass
