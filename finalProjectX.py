@@ -47,7 +47,7 @@ tango = MiningTango("MINING AREA")
 FORWARD = 0
 TURN = 1
 
-def get_hsv(self, event, x, y, flags, param):
+def get_hsv(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         # Convert the image to HSV color space
         hsv_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
@@ -77,7 +77,6 @@ try:
         cv2.imshow('Original Frame', color_image)
 
         
-
         # Exit with 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
             tango.controller.setTarget(FORWARD, 6000)
