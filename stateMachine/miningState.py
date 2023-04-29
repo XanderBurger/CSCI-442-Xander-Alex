@@ -62,13 +62,13 @@ class MiningState(State):
             cY = int(M["m01"] / M["m00"])
             cv2.circle(color_frame, (cX, cY), 5, (255, 0 ,255), 2)
     
-        for contours in blueContours:
-            M = cv2.moments(contours)
-            if M["m00"] == 0:
-                continue
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-            cv2.circle(color_frame, (cX, cY), 5, (255, 0 , 0), 2)
+        if len(blueContours) > 0:
+            bcMax = max(yellowContours, key=cv2.contourArea)
+            M = cv2.moments(bcMax)
+            if M["m00"] != 0:
+                bcX = int(M["m10"] / M["m00"])
+                bcY = int(M["m01"] / M["m00"])
+                cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
 
     
     def exitState(self, tango):
