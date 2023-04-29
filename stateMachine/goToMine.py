@@ -8,6 +8,7 @@ class GoToMine(State):
 
     def enterState(self, tango):
         tango.controller.setTarget(self.TURN, 6000)
+        tango.controller.setTarget(self.HEADTILT, 5800)
         print("GOING TO MINE")
 
     def process(self, tango, color_frame, depth_frame):

@@ -6,10 +6,11 @@ class State:
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
         self.FORWARD = 0
         self.TURN = 1
+        self.HEADTILT = 4
         self.forwardSpeed = 6000
         self.turnSpeed = 6000
-        
 
+    
     def enterState(self, tango):
         pass
 
