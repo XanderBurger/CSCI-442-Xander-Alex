@@ -27,7 +27,7 @@ class GoToMine(State):
                 print(ocY)
                 cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
 
-                if ocY < 5:
+                if ocY > 350:
                     self.forwardSpeed = 6000
                     return "MINING AREA"
         
