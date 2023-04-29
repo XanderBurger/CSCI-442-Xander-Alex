@@ -4,7 +4,7 @@ import numpy as np
 from miningTango import MiningTango
 
 ################################################
-#              setting up pipeline
+#              setting up pipeline             #
 ################################################
 
 pipeline = rs.pipeline()
@@ -40,10 +40,10 @@ width = 640
 height = 480
 
 ################################################
-#              Tango Settings
+#              Tango Settings                  #
 ################################################
 
-tango = MiningTango("FIND MINE")
+tango = MiningTango("MINING AREA")
 FORWARD = 0
 TURN = 1
 

@@ -24,6 +24,31 @@ class MiningState(State):
         cv2.drawContours(color_frame, yellowContours, -1, (255,255,0), 2)
         cv2.drawContours(color_frame, greenContours, -1, (0,255,0), 2)
         cv2.drawContours(color_frame, pinkContours, -1, (50, 0 ,255), 2)
+
+        for contours in yellowContours:
+            M = cv2.moments(contours)
+            if M["m00"] == 0:
+                continue
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            cv2.circle(color_frame, (cX, cY), 7, (255, 255, 255), 1)
+        
+        for contours in greenContours:
+            M = cv2.moments(contours)
+            if M["m00"] == 0:
+                continue
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            cv2.circle(color_frame, (cX, cY), 7, (255, 255, 255), 1)
+
+        for contours in pinkContours:
+            M = cv2.moments(contours)
+            if M["m00"] == 0:
+                continue
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            cv2.circle(color_frame, (cX, cY), 7, (255, 255, 255), 1)
+    
     
     def exitState(self, tango):
         pass
