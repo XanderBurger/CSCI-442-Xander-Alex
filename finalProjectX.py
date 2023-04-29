@@ -46,6 +46,7 @@ height = 480
 tango = MiningTango("FIND MINE")
 FORWARD = 0
 TURN = 1
+HEADTILT = 4
 
 def get_hsv(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -81,8 +82,10 @@ try:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             tango.controller.setTarget(FORWARD, 6000)
             tango.controller.setTarget(TURN, 6000)
+            tango.controller.setTarget(HEADTILT, 6000)
             break
 finally:
     tango.controller.setTarget(FORWARD, 6000)
     tango.controller.setTarget(TURN, 6000)
+    tango.controller.setTarget(HEADTILT, 6000)
     pipeline.stop()
