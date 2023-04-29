@@ -125,6 +125,7 @@ try:
                         turnSpeed = 6900
 
                     cv2.drawContours(frame, blue_contours, -1, (255, 0, 0), 2)
+                    cv2.imshow('contours', frame)
 
 
 
@@ -158,6 +159,7 @@ try:
                         turnSpeed = 6900
 
                     cv2.drawContours(frame, green_contours, -1, (0, 255, 0), 2)
+                    cv2.imshow('contours', frame)
 
 
 
@@ -203,6 +205,7 @@ try:
                         turnSpeed = 6900
 
                     cv2.drawContours(frame, green_contours, -1, (0, 0, 255), 2)
+                    cv2.imshow('contours', frame)
 
 
         else:
