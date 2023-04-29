@@ -38,29 +38,29 @@ class MiningState(State):
                 ycY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
         
-        for contours in greenContours:
-            M = cv2.moments(contours)
-            if M["m00"] == 0:
-                continue
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-            cv2.circle(color_frame, (cX, cY), 4, (0,255,0), 2)
+        if len(greenContours) > 0:
+            gcMax = max(greenContours, key=cv2.contourArea)
+            M = cv2.moments(gcMax)
+            if M["m00"] != 0:
+                gcX = int(M["m10"] / M["m00"])
+                gcY = int(M["m01"] / M["m00"])
+                cv2.circle(color_frame, (gcX,gcY), 5, (255,255,0), 2)
 
-        for contours in pinkContours:
-            M = cv2.moments(contours)
-            if M["m00"] == 0:
-                continue
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-            cv2.circle(color_frame, (cX, cY), 5, (50, 0 ,255), 2)
+        if len(pinkContours) > 0:
+            pcMax = max(pinkContours, key=cv2.contourArea)
+            M = cv2.moments(pcMax)
+            if M["m00"] != 0:
+                pcX = int(M["m10"] / M["m00"])
+                pcY = int(M["m01"] / M["m00"])
+                cv2.circle(color_frame, (pcX, pcY), 5, (255,255,0), 2)
             
-        for contours in orangeContours:
-            M = cv2.moments(contours)
-            if M["m00"] == 0:
-                continue
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-            cv2.circle(color_frame, (cX, cY), 5, (255, 0 ,255), 2)
+        if len(orangeContours) > 0:
+            ocMax = max(orangeContours, key=cv2.contourArea)
+            M = cv2.moments(ocMax)
+            if M["m00"] != 0:
+                ocX = int(M["m10"] / M["m00"])
+                ocY = int(M["m01"] / M["m00"])
+                cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
     
         if len(blueContours) > 0:
             bcMax = max(blueContours, key=cv2.contourArea)
