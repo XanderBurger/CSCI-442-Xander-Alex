@@ -81,7 +81,7 @@ class MiningState(State):
                             self.turnSpeed = 6950
                         elif ycX < 350 and ycX > 250:
                             self.turnSpeed = 6000
-                            nextState = "GO TO MINE"
+                            nextState = "GO TO PERSON"
                             if depthToYellow > 1:
                                 self.forwardSpeed = 5100
                                 self.turnSpeed = 6000
@@ -89,8 +89,8 @@ class MiningState(State):
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("found Mine")
-                                nextState = "MINING AREA"
-                            return "FIND START"
+                                # nextState = "MINING AREA"
+                                return "FIND START"
                 except:
                     print("no faces")
         
@@ -141,6 +141,7 @@ class MiningState(State):
                 cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
         
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        tango.controller.setTarget(self.TURN, self.forwardSpeed)
         # nextState = "FIND START"
         return nextState
 
