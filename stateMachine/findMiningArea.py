@@ -50,7 +50,9 @@ class FindMiningArea(State):
                     # print("Depth to marker ->", depthToMine)
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
-
+                else:
+                    self.turnSpeed = 5050
+                    
         except TypeError:
             self.turnSpeed = 5050
             self.forwardSpeed = 6000
