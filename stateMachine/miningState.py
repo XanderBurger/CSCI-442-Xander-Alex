@@ -40,13 +40,15 @@ class MiningState(State):
         faces = None
         try:
             gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
-            faces = tango.face_cascade.detectMultiScale(gray, 1.1, 4)
+            mat30 = np.full(gray.shape, 30, dtype=np.uint8)
+            gray = cv2.add(gray, mat30)
+            faces = tango.face_cascade.detectMultiScale(gray, 1, 5)
             
             faceY = None
             faceX = None
             faceW = None
             faceH = None
-            
+
             for x, y, w, h in faces:
                 faceY = y
                 faceX = x
