@@ -46,12 +46,13 @@ class MiningState(State):
             faceW = None
             faceH = None
 
-            for x, y, w, h in faces:
-                faceY = y
-                faceX = x
-                faceW = w
-                faceH = h
-                cv2.rectangle(color_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            if faces:
+                for x, y, w, h in faces:
+                    faceY = y
+                    faceX = x
+                    faceW = w
+                    faceH = h
+                    cv2.rectangle(color_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
         except:
             print("face detection not working")
         
