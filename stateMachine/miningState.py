@@ -47,7 +47,7 @@ class MiningState(State):
             faces = self.face_cascade.detectMultiScale(gray,
             scaleFactor=1.1,
             minNeighbors=5,
-            minSize=(30, 30),
+            minSize=(30, 30)
             )
             
             faceY = None
