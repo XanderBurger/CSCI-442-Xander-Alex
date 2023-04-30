@@ -8,8 +8,8 @@ class MiningState(State):
         super().__init__()
 
     def enterState(self, tango):
-        # time.sleep(1.7)
-        # tango.controller.setTarget(self.FORWARD, 6000)
+        time.sleep(1.7)
+        tango.controller.setTarget(self.FORWARD, 6000)
         tango.controller.setTarget(self.HEADTILT, 6000)
         print("IN MINE")
 
