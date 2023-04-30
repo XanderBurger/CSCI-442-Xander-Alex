@@ -37,21 +37,23 @@ class MiningState(State):
         cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         #do face detect stuff 
-        gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
-        faces = tango.face_cascade.detectMultiScale(gray, 1.1, 5)
-        
-        faceY = None
-        faceX = None
-        faceW = None
-        faceH = None
+        if(color_frame):
+            gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
+            faces = tango.face_cascade.detectMultiScale(gray, 1.1, 4)
+            
+            faceY = None
+            faceX = None
+            faceW = None
+            faceH = None
 
-        for x, y, w, h in faces:
-            faceY = y
-            faceX = x
-            faceW = w
-            faceH = h
+            for x, y, w, h in faces:
+                faceY = y
+                faceX = x
+                faceW = w
+                faceH = h
+                cv2.rectangle(color_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            
         
-        cv2.rectangle(color_frame, (faceX, faceY), (faceX + faceW, faceY + faceH), (255, 0, 0), 2)
 
         if len(yellowContours) > 0:
             ycMax = max(yellowContours, key=cv2.contourArea)
