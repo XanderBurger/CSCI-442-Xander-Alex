@@ -37,7 +37,7 @@ class MiningState(State):
         cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         #do face detect stuff 
-        faces = []
+        faces = np.array([])
         try:
             gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
             # mat30 = np.full(gray.shape, 30, dtype=np.uint8)
