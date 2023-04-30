@@ -10,7 +10,7 @@ class MiningState(State):
     def enterState(self, tango):
         # time.sleep(1.7)
         # tango.controller.setTarget(self.FORWARD, 6000)
-        # tango.controller.setTarget(self.HEADTILT, 5000)
+        tango.controller.setTarget(self.HEADTILT, 6000)
         print("IN MINE")
 
 
@@ -72,9 +72,25 @@ class MiningState(State):
                 cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
                 try:
                     if (ycY > faceY) and (ycX >= faceX) and (ycX <= faceX + faceW):
+                        depthToYellow = depth_frame.get_distance(ycX, ycY)
                         tango.iceBlockColor = "YELLOW"
                         print("PERSON HOLDING YELLOW")
-                        # return "FIND START"
+                        if ycX >= 350:
+                            self.turnSpeed = 5050
+                        elif ycX <= 250:
+                            self.turnSpeed = 6950
+                        elif ycX < 350 and ycX > 250:
+                            self.turnSpeed = 6000
+                            nextState = "GO TO MINE"
+                            if depthToYellow > 1:
+                                self.forwardSpeed = 5100
+                                self.turnSpeed = 6000
+                            else:
+                                self.forwardSpeed = 6000
+                                self.turnSpeed = 6000
+                                print("found Mine")
+                                nextState = "MINING AREA"
+                            return "FIND START"
                 except:
                     print("no faces")
         
@@ -124,7 +140,7 @@ class MiningState(State):
                 bcY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
         
-        
+        tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         # nextState = "FIND START"
         return nextState
 
