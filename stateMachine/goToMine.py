@@ -15,19 +15,19 @@ class GoToMine(State):
         nextState = None
         hsv_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
 
-        orangeBinary = cv2.inRange(hsv_frame, tango.orangeLower, tango.orangeUpper)
-        orangeContours, orangeHierarchy = cv2.findContours(orangeBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(color_frame, orangeContours, -1, (255, 0 ,255), 2)
+        blueBinary = cv2.inRange(hsv_frame, tango.blueLower, tango.blueUpper)
+        blueContours, blueHierarchy = cv2.findContours(blueBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        cv2.drawContours(color_frame, blueContours, -1, (255, 0 ,255), 2)
         self.forwardSpeed = 5100  
-        if len(orangeContours) > 0:
-            ocMax = max(orangeContours, key=cv2.contourArea)
-            M = cv2.moments(ocMax)
+        if len(blueContours) > 0:
+            bcMax = max(blueContours, key=cv2.contourArea)
+            M = cv2.moments(bcMax)
             if M["m00"] != 0:
-                ocX = int(M["m10"] / M["m00"])
-                ocY = int(M["m01"] / M["m00"])
-                cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
+                bcX = int(M["m10"] / M["m00"])
+                bcY = int(M["m01"] / M["m00"])
+                cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
 
-                if ocY > 465:
+                if bcY > 465:
                     self.forwardSpeed = 6000
                     return "MINING AREA"
         

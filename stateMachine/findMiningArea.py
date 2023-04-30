@@ -18,7 +18,7 @@ class FindMiningArea(State):
     
         try:
             for i in range(len(ids)):
-                if int(ids[i]) == 22:
+                if int(ids[i]) == 49:
                     print("found mine")
                     box = corners[i][0]
                     centerX = int((box[0][0] + box[1][0]) / 2)
@@ -52,7 +52,7 @@ class FindMiningArea(State):
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
                     self.turnSpeed = 5050
-                    
+
         except TypeError:
             self.turnSpeed = 5050
             self.forwardSpeed = 6000
