@@ -75,11 +75,11 @@ class MiningState(State):
                         depthToYellow = depth_frame.get_distance(ycX, ycY)
                         tango.iceBlockColor = "YELLOW"
                         print("PERSON HOLDING YELLOW")
-                        if ycX >= 350:
-                            self.turnSpeed = 5050
-                        elif ycX <= 250:
-                            self.turnSpeed = 6950
-                        elif ycX < 350 and ycX > 250:
+                        if ycX >= 400:
+                            self.turnSpeed = 5100
+                        elif ycX <= 200:
+                            self.turnSpeed = 6900
+                        elif ycX < 400 and ycX > 200:
                             self.turnSpeed = 6000
                             if depthToYellow > 1:
                                 self.forwardSpeed = 5100
