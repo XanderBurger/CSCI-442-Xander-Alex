@@ -11,6 +11,7 @@ class MiningTango:
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
         self.iceBlockColor = None
+        self.face_cascade = cv2.CascadeClassifier("haarcascade_frontalface.xml")
         
         self.yellowUpper = np.array([40,240,255])
         self.yellowLower = np.array([30,170,150])

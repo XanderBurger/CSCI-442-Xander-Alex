@@ -8,9 +8,9 @@ class MiningState(State):
         super().__init__()
 
     def enterState(self, tango):
-        time.sleep(1.7)
-        tango.controller.setTarget(self.FORWARD, 6000)
-        tango.controller.setTarget(self.HEADTILT, 5000)
+        # time.sleep(1.7)
+        # tango.controller.setTarget(self.FORWARD, 6000)
+        # tango.controller.setTarget(self.HEADTILT, 5000)
         print("IN MINE")
 
 
@@ -37,9 +37,8 @@ class MiningState(State):
         cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         #do face detect stuff 
-        face_cascade = cv2.CascadeClassifier("haarcascade_frontalface.xml")
         gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, 1.1, 5)
+        faces = tango.face_cascade.detectMultiScale(gray, 1.1, 5)
         
         faceY = None
         faceX = None
@@ -51,7 +50,8 @@ class MiningState(State):
             faceX = x
             faceW = w
             faceH = h
-            cv2.rectangle(color_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        
+        cv2.rectangle(color_frame, (faceX, faceY), (faceX + faceW, faceY + faceH), (255, 0, 0), 2)
 
         if len(yellowContours) > 0:
             ycMax = max(yellowContours, key=cv2.contourArea)
@@ -64,7 +64,7 @@ class MiningState(State):
                     if (ycY > faceY) and (ycX >= faceX and ycX >= faceX + faceW):
                         tango.iceBlockColor = "YELLOW"
                         print("PERSON HOLDING YELLOW")
-                        return "FIND START"
+                        # return "FIND START"
         
         if len(greenContours) > 0:
             gcMax = max(greenContours, key=cv2.contourArea)
@@ -77,7 +77,7 @@ class MiningState(State):
                     if (gcY > faceY) and (gcX >= faceX and gcX >= faceX + faceW):
                         tango.iceBlockColor = "GREEN"
                         print("PERSON HOLDING GREEN")
-                        return "FIND START"
+                        # return "FIND START"
 
         if len(pinkContours) > 0:
             pcMax = max(pinkContours, key=cv2.contourArea)
@@ -90,7 +90,7 @@ class MiningState(State):
                     if (pcY > faceY) and (pcX >= faceX and pcX >= faceX + faceW):
                         tango.iceBlockColor = "PINK"
                         print("PERSON HOLDING PINK")
-                        return "FIND START"
+                        # return "FIND START"
             
         if len(orangeContours) > 0:
             ocMax = max(orangeContours, key=cv2.contourArea)
