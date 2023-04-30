@@ -6,12 +6,12 @@ import time
 class MiningState(State):
     def __init__(self) -> None:
         super().__init__()
+        self.face_cascade = cv2.CascadeClassifier("haarcascade_frontalface.xml")
 
     def enterState(self, tango):
         # time.sleep(1.7)
         # tango.controller.setTarget(self.FORWARD, 6000)
         # tango.controller.setTarget(self.HEADTILT, 5000)
-        self.face_cascade = cv2.CascadeClassifier("haarcascade_frontalface.xml")
         print("IN MINE")
 
 
