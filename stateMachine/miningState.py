@@ -37,7 +37,7 @@ class MiningState(State):
         cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         #do face detect stuff 
-        faces = None
+        faces = []
         try:
             gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
             # mat30 = np.full(gray.shape, 30, dtype=np.uint8)
@@ -70,7 +70,7 @@ class MiningState(State):
                 ycX = int(M["m10"] / M["m00"])
                 ycY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
-                if faces:
+                if faces.any():
                     if (ycY > faceY) and (ycX >= faceX and ycX >= faceX + faceW):
                         tango.iceBlockColor = "YELLOW"
                         print("PERSON HOLDING YELLOW")
@@ -83,7 +83,7 @@ class MiningState(State):
                 gcX = int(M["m10"] / M["m00"])
                 gcY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (gcX,gcY), 5, (255,255,0), 2)
-                if faces:
+                if faces.any():
                     if (gcY > faceY) and (gcX >= faceX and gcX >= faceX + faceW):
                         tango.iceBlockColor = "GREEN"
                         print("PERSON HOLDING GREEN")
@@ -96,7 +96,7 @@ class MiningState(State):
                 pcX = int(M["m10"] / M["m00"])
                 pcY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (pcX, pcY), 5, (255,255,0), 2)
-                if faces:
+                if faces.any():
                     if (pcY > faceY) and (pcX >= faceX and pcX >= faceX + faceW):
                         tango.iceBlockColor = "PINK"
                         print("PERSON HOLDING PINK")
