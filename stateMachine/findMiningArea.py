@@ -32,11 +32,11 @@ class FindMiningArea(State):
                     #     self.turnSpeed = 6000
                     #     continue
 
-                    if centerX >= 400:
+                    if centerX >= 350:
                         self.turnSpeed = 5150
-                    elif centerX <= 200:
+                    elif centerX <= 250:
                         self.turnSpeed = 6850
-                    elif centerX < 400 and centerX > 200:
+                    elif centerX < 350 and centerX > 250:
                         self.turnSpeed = 6000
                         nextState = "GO TO MINE"
                         # if depthToMine > 1:
