@@ -9,7 +9,8 @@ class FindStartingArea(State):
 
 
     def enterState(self, tango):
-        pass
+        tango.controller.setTarget(self.FORWARD, 6000)
+        tango.controller.setTarget(self.HEADTILT, 5000)
     
     def process(self, tango, color_frame, depth_frame):
         nextState = None
