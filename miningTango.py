@@ -9,6 +9,8 @@ class MiningTango:
         self.stateMachine = stateMachine.StateMachine(self, startingState)
         self.controller = Controller()
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
+
+        self.iceBlockColor = None
         
         self.yellowUpper = np.array([40,240,255])
         self.yellowLower = np.array([30,170,150])
