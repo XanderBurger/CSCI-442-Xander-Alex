@@ -36,7 +36,7 @@ class FindStartingArea(State):
                         self.turnSpeed = 6950
                     elif centerX < 350 and centerX > 250:
                         self.turnSpeed = 6000
-                        return ""
+                        nextState = "GO TO START"
                         # if depthToMine > 1:
                         #     self.forwardSpeed = 4900
                         #     self.turnSpeed = 6000
