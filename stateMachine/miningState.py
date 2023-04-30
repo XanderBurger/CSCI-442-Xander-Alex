@@ -71,7 +71,7 @@ class MiningState(State):
                 ycY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
                 if (faces).any():
-                    if (ycY > faceY) and (ycX >= faceX and ycX >= faceX + faceW):
+                    if (ycY > faceY) and (ycX <= faceX)and (ycX <= faceX + faceW):
                         tango.iceBlockColor = "YELLOW"
                         print("PERSON HOLDING YELLOW")
                         # return "FIND START"
