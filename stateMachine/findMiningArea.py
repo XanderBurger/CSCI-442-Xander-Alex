@@ -33,9 +33,9 @@ class FindMiningArea(State):
                     #     continue
 
                     if centerX >= 350:
-                        self.turnSpeed = 5100
+                        self.turnSpeed = 5150
                     elif centerX <= 250:
-                        self.turnSpeed = 6900
+                        self.turnSpeed = 6850
                     elif centerX < 350 and centerX > 250:
                         self.turnSpeed = 6000
                         nextState = "GO TO MINE"
@@ -53,10 +53,10 @@ class FindMiningArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
-                    self.turnSpeed = 5050
+                    self.turnSpeed = 5150
 
         except TypeError:
-            self.turnSpeed = 5050
+            self.turnSpeed = 5150
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
