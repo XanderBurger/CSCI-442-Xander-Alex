@@ -62,10 +62,11 @@ class MiningState(State):
         except:
             print("Face detection not working")
     
-
+        foundYellowPerson = False
         if len(yellowContours) > 0:
             ycMax = max(yellowContours, key=cv2.contourArea)
             M = cv2.moments(ycMax)
+            
             if M["m00"] != 0:
                 ycX = int(M["m10"] / M["m00"])
                 ycY = int(M["m01"] / M["m00"])
@@ -74,25 +75,27 @@ class MiningState(State):
                     if (ycY > faceY) and (ycX >= faceX) and (ycX <= faceX + faceW):
                         depthToYellow = depth_frame.get_distance(ycX, ycY)
                         tango.iceBlockColor = "YELLOW"
-                        print("PERSON HOLDING YELLOW")
-                        if ycX >= 350:
-                            self.turnSpeed = 5050
-                        elif ycX <= 250:
-                            self.turnSpeed = 6950
-                        elif ycX < 350 and ycX > 250:
-                            self.turnSpeed = 6000
-                            nextState = "GO TO PERSON"
-                            if depthToYellow > 1:
-                                self.forwardSpeed = 5100
-                                self.turnSpeed = 6000
-                            else:
-                                self.forwardSpeed = 6000
-                                self.turnSpeed = 6000
-                                print("found Mine")
-                                # nextState = "MINING AREA"
-                                return "FIND START"
+                        foundYellowPerson = True
+                        print("PERSON HOLDING YELLOW")       
                 except:
                     print("no faces")
+                if foundYellowPerson:
+                    if ycX >= 350:
+                        self.turnSpeed = 5050
+                    elif ycX <= 250:
+                        self.turnSpeed = 6950
+                    elif ycX < 350 and ycX > 250:
+                        self.turnSpeed = 6000
+                        nextState = "GO TO PERSON"
+                        if depthToYellow > 1:
+                            self.forwardSpeed = 5100
+                            self.turnSpeed = 6000
+                        else:
+                            self.forwardSpeed = 6000
+                            self.turnSpeed = 6000
+                            print("found Mine")
+                            # nextState = "MINING AREA"
+                            return "FIND START"
         
         if len(greenContours) > 0:
             gcMax = max(greenContours, key=cv2.contourArea)
