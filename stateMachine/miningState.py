@@ -38,25 +38,25 @@ class MiningState(State):
 
         #do face detect stuff 
         faces = None
-        try:
-            gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
-            mat30 = np.full(gray.shape, 30, dtype=np.uint8)
-            gray = cv2.add(gray, mat30)
-            faces = tango.face_cascade.detectMultiScale(gray, 1, 5)
-            
-            faceY = None
-            faceX = None
-            faceW = None
-            faceH = None
+        
+        gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
+        mat30 = np.full(gray.shape, 30, dtype=np.uint8)
+        gray = cv2.add(gray, mat30)
+        faces = tango.face_cascade.detectMultiScale(gray, 1, 5)
+        
+        faceY = None
+        faceX = None
+        faceW = None
+        faceH = None
 
-            for x, y, w, h in faces:
-                faceY = y
-                faceX = x
-                faceW = w
-                faceH = h
-                cv2.rectangle(color_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-        except:
-            print("face detection not working")
+        for x, y, w, h in faces:
+            faceY = y
+            faceX = x
+            faceW = w
+            faceH = h
+            cv2.rectangle(color_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    
+        print("face detection not working")
         
 
         if len(yellowContours) > 0:
