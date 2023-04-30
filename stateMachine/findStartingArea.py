@@ -2,7 +2,7 @@ from stateMachine.state import State
 import cv2
 import numpy as np
 
-class FindMiningArea(State):
+class FindStartingArea(State):
     
     def __init__(self) -> None:
         super().__init__()
@@ -18,7 +18,7 @@ class FindMiningArea(State):
     
         try:
             for i in range(len(ids)):
-                if int(ids[i]) == 22:
+                if int(ids[i]) == 49:
                     print("found mine")
                     box = corners[i][0]
                     centerX = int((box[0][0] + box[1][0]) / 2)
@@ -36,7 +36,7 @@ class FindMiningArea(State):
                         self.turnSpeed = 6950
                     elif centerX < 350 and centerX > 250:
                         self.turnSpeed = 6000
-                        return "FIND MINE"
+                        return ""
                         # if depthToMine > 1:
                         #     self.forwardSpeed = 4900
                         #     self.turnSpeed = 6000

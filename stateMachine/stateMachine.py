@@ -1,6 +1,9 @@
 from stateMachine.miningState import MiningState
 from stateMachine.findMiningArea import FindMiningArea
 from stateMachine.goToMine import GoToMine
+from stateMachine.goToStart import GoToStart
+from stateMachine.findStartingArea import FindStartingArea
+from stateMachine.startingArea import StartingArea
 
 class StateMachine:
     def __init__(self, tango, startingState) -> None:
@@ -8,7 +11,10 @@ class StateMachine:
         self.states = {
             "FIND MINE": FindMiningArea(),
             "MINING AREA": MiningState(),
-            "GO TO MINE": GoToMine()
+            "GO TO MINE": GoToMine(),
+            "FIND START": FindStartingArea(),
+            "GO TO START": GoToStart(),
+            "STARTING AREA": StartingArea()
         }
         self.currentState = self.states[startingState]
 

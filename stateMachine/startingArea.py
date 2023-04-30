@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import time
 
-class MiningState(State):
+class StartingArea(State):
     def __init__(self) -> None:
         super().__init__()
 
@@ -11,7 +11,7 @@ class MiningState(State):
         time.sleep(1.7)
         tango.controller.setTarget(self.FORWARD, 6000)
         tango.controller.setTarget(self.HEADTILT, 5000)
-        print("IN MINE")
+        print("IN START")
 
 
     def process(self, tango, color_frame, depth_frame):
@@ -75,7 +75,8 @@ class MiningState(State):
                 bcX = int(M["m10"] / M["m00"])
                 bcY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
-        nextState = "FIND START"
+        
+        nextState = "FIND MINE"
         return nextState
 
     
