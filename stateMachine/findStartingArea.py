@@ -52,7 +52,7 @@ class FindStartingArea(State):
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
 
         except TypeError:
-            self.turnSpeed = 5050
+            self.turnSpeed = 5100
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
