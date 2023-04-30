@@ -11,6 +11,7 @@ class MiningState(State):
         # time.sleep(1.7)
         # tango.controller.setTarget(self.FORWARD, 6000)
         # tango.controller.setTarget(self.HEADTILT, 5000)
+        self.face_cascade = cv2.CascadeClassifier("haarcascade_frontalface.xml")
         print("IN MINE")
 
 
@@ -42,7 +43,7 @@ class MiningState(State):
         gray = cv2.cvtColor(color_frame, cv2.COLOR_BGR2GRAY)
         # mat30 = np.full(gray.shape, 30, dtype=np.uint8)
         # gray = cv2.add(gray, mat30)
-        faces = tango.face_cascade.detectMultiScale(gray,
+        faces = self.face_cascade.detectMultiScale(gray,
         scaleFactor=1.1,
         minNeighbors=5,
         minSize=(30, 30),

@@ -9,6 +9,7 @@ class State:
         self.HEADTILT = 4
         self.forwardSpeed = 6000
         self.turnSpeed = 6000
+        self.face_cascade = None
 
     
     def enterState(self, tango):
