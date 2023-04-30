@@ -21,20 +21,20 @@ class MiningState(State):
         yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
         greenBinary = cv2.inRange(hsv_frame, tango.greenLower, tango.greenUpper)
         pinkBinary = cv2.inRange(hsv_frame, tango.pinkLower, tango.pinkUpper)
-        orangeBinary = cv2.inRange(hsv_frame, tango.orangeLower, tango.orangeUpper)
-        blueBinary = cv2.inRange(hsv_frame, tango.blueLower, tango.blueUpper)
+        # orangeBinary = cv2.inRange(hsv_frame, tango.orangeLower, tango.orangeUpper)
+        # blueBinary = cv2.inRange(hsv_frame, tango.blueLower, tango.blueUpper)
 
         yellowContours, yellowHierarchy = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         greenContours, greenHierarchy = cv2.findContours(greenBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         pinkContours, pinkHierarchy = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        orangeContours, orangeHierarchy = cv2.findContours(orangeBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        blueContours, blueHierarchy = cv2.findContours(blueBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        # orangeContours, orangeHierarchy = cv2.findContours(orangeBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        # blueContours, blueHierarchy = cv2.findContours(blueBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         cv2.drawContours(color_frame, yellowContours, -1, (255,255,0), 2)
         cv2.drawContours(color_frame, greenContours, -1, (0,255,0), 2)
         cv2.drawContours(color_frame, pinkContours, -1, (50, 0 ,255), 2)
-        cv2.drawContours(color_frame, orangeContours, -1, (255, 0 ,255), 2)
-        cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
+        # cv2.drawContours(color_frame, orangeContours, -1, (255, 0 ,255), 2)
+        # cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         #do face detect stuff 
         faces = np.array([])
@@ -124,21 +124,21 @@ class MiningState(State):
                 except:
                     print("no faces")
             
-        if len(orangeContours) > 0:
-            ocMax = max(orangeContours, key=cv2.contourArea)
-            M = cv2.moments(ocMax)
-            if M["m00"] != 0:
-                ocX = int(M["m10"] / M["m00"])
-                ocY = int(M["m01"] / M["m00"])
-                cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
+        # if len(orangeContours) > 0:
+        #     ocMax = max(orangeContours, key=cv2.contourArea)
+        #     M = cv2.moments(ocMax)
+        #     if M["m00"] != 0:
+        #         ocX = int(M["m10"] / M["m00"])
+        #         ocY = int(M["m01"] / M["m00"])
+        #         cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
     
-        if len(blueContours) > 0:
-            bcMax = max(blueContours, key=cv2.contourArea)
-            M = cv2.moments(bcMax)
-            if M["m00"] != 0:
-                bcX = int(M["m10"] / M["m00"])
-                bcY = int(M["m01"] / M["m00"])
-                cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
+        # if len(blueContours) > 0:
+        #     bcMax = max(blueContours, key=cv2.contourArea)
+        #     M = cv2.moments(bcMax)
+        #     if M["m00"] != 0:
+        #         bcX = int(M["m10"] / M["m00"])
+        #         bcY = int(M["m01"] / M["m00"])
+        #         cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
         
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
