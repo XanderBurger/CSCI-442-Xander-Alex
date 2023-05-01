@@ -22,7 +22,6 @@ class GoToPerson(State):
         if tango.iceBlockColor == "YELLOW":
             yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
             colorContours, colorContours = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-            
         elif tango.iceBlockColor == "PINK":
             pinkBinary = cv2.inRange(hsv_frame, tango.pinkLower, tango.pinkUpper)
             colorContours, colorContours = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -34,27 +33,29 @@ class GoToPerson(State):
 
         try:
             cv2.drawContours(color_frame, colorContours, -1, (255,255,0), 2)
+            
+            if len(colorContours) > 0:
+                cMax = max(colorContours, key=cv2.contourArea)
+                M = cv2.moments(cMax)
+                if M["m00"] != 0:
+                    distanceToColor = depth_frame.get_distance(cX, cY)
+                    cX = int(M["m10"] / M["m00"])
+                    cY = int(M["m01"] / M["m00"])
+                    cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
+                    if cX >= 400:
+                        self.turnSpeed = 5100
+                    elif cX <= 200:
+                        self.turnSpeed = 6900
+                    elif cX < 400 and cX > 200:
+                        self.turnSpeed = 6000
+                    if distanceToColor > 1:
+                        self.forwardSpeed = 5100
+                    else:
+                        return "FIND START"
         except:
             print("no contours")
 
-        if len(colorContours) > 0:
-            cMax = max(colorContours, key=cv2.contourArea)
-            M = cv2.moments(cMax)
-            if M["m00"] != 0:
-                distanceToColor = depth_frame.get_distance(cX, cY)
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
-                cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
-                if cX >= 400:
-                    self.turnSpeed = 5100
-                elif cX <= 200:
-                    self.turnSpeed = 6900
-                elif cX < 400 and cX > 200:
-                    self.turnSpeed = 6000
-                if distanceToColor > 1:
-                    self.forwardSpeed = 5100
-                else:
-                    return "FIND START"
+       
 
         return nextState
 
