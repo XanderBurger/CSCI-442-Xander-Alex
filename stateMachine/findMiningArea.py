@@ -16,7 +16,6 @@ class FindMiningArea(State):
         mat30 = np.full(color_frame.shape, 30, dtype=np.uint8)
         color_frame = cv2.add(color_frame, mat30)
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
-        # depthToMine = None
     
         try:
             for i in range(len(ids)):
@@ -25,12 +24,6 @@ class FindMiningArea(State):
                     box = corners[i][0]
                     centerX = int((box[0][0] + box[1][0]) / 2)
                     centerY = int((box[1][1] + box[3][1]) / 2)
-                    # depthToMine = depth_frame.get_distance(centerX, centerY)
-                    
-                    # if depthToMine == 0:
-                    #     self.forwardSpeed = 6000
-                    #     self.turnSpeed = 6000
-                    #     continue
 
                     if centerX >= 350:
                         self.turnSpeed = 5150
@@ -39,17 +32,7 @@ class FindMiningArea(State):
                     elif centerX < 350 and centerX > 250:
                         self.turnSpeed = 6000
                         nextState = "GO TO MINE"
-                        # if depthToMine > 1:
-                        #     self.forwardSpeed = 4900
-                        #     self.turnSpeed = 6000
-                        # else:
-                        #     self.forwardSpeed = 6000
-                        #     self.turnSpeed = 6000
-                        #     print("found Mine")
-                        #     nextState = "MINING AREA"
 
-                    
-                    # print("Depth to marker ->", depthToMine)
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:

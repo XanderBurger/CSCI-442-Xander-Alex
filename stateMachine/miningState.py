@@ -8,9 +8,6 @@ class MiningState(State):
         super().__init__()
 
     def enterState(self, tango):
-        time.sleep(1.7)
-        tango.controller.setTarget(self.FORWARD, 6000)
-        tango.controller.setTarget(self.HEADTILT, 6000)
         print("IN MINE")
 
 
@@ -21,20 +18,14 @@ class MiningState(State):
         yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
         greenBinary = cv2.inRange(hsv_frame, tango.greenLower, tango.greenUpper)
         pinkBinary = cv2.inRange(hsv_frame, tango.pinkLower, tango.pinkUpper)
-        # orangeBinary = cv2.inRange(hsv_frame, tango.orangeLower, tango.orangeUpper)
-        # blueBinary = cv2.inRange(hsv_frame, tango.blueLower, tango.blueUpper)
 
         yellowContours, yellowHierarchy = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         greenContours, greenHierarchy = cv2.findContours(greenBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         pinkContours, pinkHierarchy = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        # orangeContours, orangeHierarchy = cv2.findContours(orangeBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        # blueContours, blueHierarchy = cv2.findContours(blueBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         cv2.drawContours(color_frame, yellowContours, -1, (255,255,0), 2)
         cv2.drawContours(color_frame, greenContours, -1, (0,255,0), 2)
         cv2.drawContours(color_frame, pinkContours, -1, (50, 0 ,255), 2)
-        # cv2.drawContours(color_frame, orangeContours, -1, (255, 0 ,255), 2)
-        # cv2.drawContours(color_frame, blueContours, -1, (255, 0 , 0), 2)
 
         #do face detect stuff 
         faces = np.array([])
@@ -82,11 +73,10 @@ class MiningState(State):
                             if depthToYellow > 1:
                                 self.forwardSpeed = 5100
                                 self.turnSpeed = 6000
-                            else:
+                            elif depthToYellow in range(0.1, 1):
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
-                                print("found Mine")
-                                # nextState = "MINING AREA"
+                                print("FOUND PERSON")
                                 return "FIND START"       
                 except:
                     self.turnSpeed = 6000
@@ -103,11 +93,28 @@ class MiningState(State):
                 cv2.circle(color_frame, (gcX,gcY), 5, (255,255,0), 2)
                 try:
                     if (gcY > faceY) and (gcX >= faceX) and (gcX <= faceX + faceW):
+                        depthToGreen = depth_frame.get_distance(gcX, gcY)
                         tango.iceBlockColor = "GREEN"
                         print("PERSON HOLDING GREEN")
-                        # return "FIND START"
+                        if gcX >= 400:
+                            self.turnSpeed = 5100
+                        elif gcX <= 200:
+                            self.turnSpeed = 6900
+                        elif gcX < 400 and gcX > 200:
+                            self.turnSpeed = 6000
+                            if depthToGreen > 1:
+                                self.forwardSpeed = 5100
+                                self.turnSpeed = 6000
+                            elif depthToGreen in range(0.1, 1):
+                                self.forwardSpeed = 6000
+                                self.turnSpeed = 6000
+                                print("FOUND PERSON")
+                                return "FIND START"       
                 except:
+                    self.turnSpeed = 6000
+                    self.forwardSpeed = 6000
                     print("no faces")
+                
 
         if len(pinkContours) > 0:
             pcMax = max(pinkContours, key=cv2.contourArea)
@@ -118,31 +125,33 @@ class MiningState(State):
                 cv2.circle(color_frame, (pcX, pcY), 5, (255,255,0), 2)
                 try:
                     if (pcY > faceY) and (pcX >= faceX) and (pcX <= faceX + faceW):
+                        depthToPink = depth_frame.get_distance(pcX, pcY)
                         tango.iceBlockColor = "PINK"
                         print("PERSON HOLDING PINK")
-                        # return "FIND START"
+                        if pcX >= 400:
+                            self.turnSpeed = 5100
+                        elif pcX <= 200:
+                            self.turnSpeed = 6900
+                        elif pcX < 400 and pcX > 200:
+                            self.turnSpeed = 6000
+                            if depthToPink > 1:
+                                self.forwardSpeed = 5100
+                                self.turnSpeed = 6000
+                            elif depthToPink in range(0.1, 1):
+                                self.forwardSpeed = 6000
+                                self.turnSpeed = 6000
+                                print("FOUND PERSON")
+                                return "FIND START"       
                 except:
+                    self.turnSpeed = 6000
+                    self.forwardSpeed = 6000
                     print("no faces")
+                
             
-        # if len(orangeContours) > 0:
-        #     ocMax = max(orangeContours, key=cv2.contourArea)
-        #     M = cv2.moments(ocMax)
-        #     if M["m00"] != 0:
-        #         ocX = int(M["m10"] / M["m00"])
-        #         ocY = int(M["m01"] / M["m00"])
-        #         cv2.circle(color_frame, (ocX, ocY), 5, (255,255,0), 2)
-    
-        # if len(blueContours) > 0:
-        #     bcMax = max(blueContours, key=cv2.contourArea)
-        #     M = cv2.moments(bcMax)
-        #     if M["m00"] != 0:
-        #         bcX = int(M["m10"] / M["m00"])
-        #         bcY = int(M["m01"] / M["m00"])
-        #         cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
         
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
-        # nextState = "FIND START"
+
         return nextState
 
     

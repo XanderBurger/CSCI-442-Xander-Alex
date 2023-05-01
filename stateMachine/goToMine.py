@@ -1,6 +1,7 @@
 from stateMachine.state import State
 import cv2
 import numpy as np
+import time
 
 class GoToMine(State):
     def __init__(self) -> None:
@@ -28,7 +29,6 @@ class GoToMine(State):
                 cv2.circle(color_frame, (bcX, bcY), 5, (255,255,0), 2)
 
                 if bcY > 465:
-                    self.forwardSpeed = 6000
                     return "MINING AREA"
         
         
@@ -37,4 +37,6 @@ class GoToMine(State):
         return nextState
     
     def exitState(self, tango):
-        pass
+        time.sleep(1.7)
+        tango.controller.setTarget(self.FORWARD, 6000)
+        tango.controller.setTarget(self.HEADTILT, 6000)
