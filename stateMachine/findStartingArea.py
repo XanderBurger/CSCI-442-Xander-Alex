@@ -15,7 +15,8 @@ class FindStartingArea(State):
     def process(self, tango, color_frame, depth_frame):
         nextState = None
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
-        
+        self.turnSpeed = 5150
+
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 22:

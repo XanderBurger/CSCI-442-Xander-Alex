@@ -16,7 +16,8 @@ class FindMiningArea(State):
         mat30 = np.full(color_frame.shape, 30, dtype=np.uint8)
         color_frame = cv2.add(color_frame, mat30)
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
-    
+        self.turnSpeed = 5150
+
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 49:

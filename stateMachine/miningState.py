@@ -74,7 +74,7 @@ class MiningState(State):
                             if depthToYellow > 1:
                                 self.forwardSpeed = 5100
                                 self.turnSpeed = 6000
-                            elif depthToYellow in range(0.1, 1):
+                            elif depthToYellow < 0.99:
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("FOUND PERSON")
@@ -106,7 +106,7 @@ class MiningState(State):
                             if depthToGreen > 1:
                                 self.forwardSpeed = 5100
                                 self.turnSpeed = 6000
-                            elif depthToGreen in range(0.1, 1):
+                            elif depthToGreen < 0.99:
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("FOUND PERSON")
@@ -138,7 +138,7 @@ class MiningState(State):
                             if depthToPink > 1:
                                 self.forwardSpeed = 5100
                                 self.turnSpeed = 6000
-                            elif depthToPink in range(0.1, 1):
+                            elif depthToPink < 0.99:
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("FOUND PERSON")
