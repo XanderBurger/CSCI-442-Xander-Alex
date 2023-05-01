@@ -8,7 +8,7 @@ class StartingArea(State):
         super().__init__()
 
     def enterState(self, tango):
-        print("IN START")
+        tango.controller.setTarget(self.HEADTILT, 4000)
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
@@ -16,6 +16,8 @@ class StartingArea(State):
 
         colorContours = None
         
+        print("FINDING", tango.iceBlockColor + "...")
+
         if tango.iceBlockColor == "YELLOW":
             yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
             colorContours, colorContours = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -37,10 +39,22 @@ class StartingArea(State):
                 cX = int(M["m10"] / M["m00"])
                 cY = int(M["m01"] / M["m00"])
                 cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
+                if cX >= 400:
+                    self.turnSpeed = 5100
+                elif cX <= 200:
+                    self.turnSpeed = 6900
+                elif cX < 400 and cX > 200:
+                    self.turnSpeed = 6000
+                if cY < 460:
+                    self.forwardSpeed = 5100
+                else:
+                    return "FINISH"
 
-
+        
         return nextState
 
     
     def exitState(self, tango):
-        pass
+        time.sleep(1)
+        tango.controller.setTarget(self.FORWARD, 6000)
+        tango.controller.setTarget(self.HEADTILT, 6000)

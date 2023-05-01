@@ -82,7 +82,7 @@ class MiningState(State):
                     self.turnSpeed = 6000
                     self.forwardSpeed = 6000
                     print("no faces")
-                
+
         
         if len(greenContours) > 0:
             gcMax = max(greenContours, key=cv2.contourArea)
@@ -148,7 +148,6 @@ class MiningState(State):
                     print("no faces")
                 
             
-        
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
 
