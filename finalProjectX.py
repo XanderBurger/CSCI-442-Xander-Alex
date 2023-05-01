@@ -43,7 +43,7 @@ height = 480
 #              Tango Settings                  #
 ################################################
 
-tango = MiningTango("FIND MINE")
+tango = MiningTango("MINING AREA")
 FORWARD = 0
 TURN = 1
 HEADTILT = 4
