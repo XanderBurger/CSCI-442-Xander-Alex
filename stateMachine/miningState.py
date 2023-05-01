@@ -65,21 +65,8 @@ class MiningState(State):
                     if (ycY > faceY) and (ycX >= faceX) and (ycX <= faceX + faceW):
                         depthToYellow = depth_frame.get_distance(ycX, ycY)
                         print("PERSON HOLDING YELLOW")
-                        if ycX >= 400:
-                            self.turnSpeed = 5100
-                        elif ycX <= 200:
-                            self.turnSpeed = 6900
-                        elif ycX < 400 and ycX > 200:
-                            self.turnSpeed = 6000
-                            if depthToYellow > 1:
-                                self.forwardSpeed = 5100
-                                self.turnSpeed = 6000
-                            else:
-                                self.forwardSpeed = 6000
-                                self.turnSpeed = 6000
-                                print("FOUND PERSON")
-                                tango.iceBlockColor = "YELLOW"
-                                return "FIND START"       
+                        tango.iceBlockColor = "YELLOW"
+                        return "GO TO PERSON"
                 except:
                     self.turnSpeed = 6000
                     self.forwardSpeed = 6000
@@ -97,21 +84,8 @@ class MiningState(State):
                     if (gcY > faceY) and (gcX >= faceX) and (gcX <= faceX + faceW):
                         depthToGreen = depth_frame.get_distance(gcX, gcY)
                         print("PERSON HOLDING GREEN")
-                        if gcX >= 400:
-                            self.turnSpeed = 5100
-                        elif gcX <= 200:
-                            self.turnSpeed = 6900
-                        elif gcX < 400 and gcX > 200:
-                            self.turnSpeed = 6000
-                            if depthToGreen > 1:
-                                self.forwardSpeed = 5100
-                                self.turnSpeed = 6000
-                            else:
-                                self.forwardSpeed = 6000
-                                self.turnSpeed = 6000
-                                print("FOUND PERSON")
-                                tango.iceBlockColor = "GREEN"
-                                return "FIND START"       
+                        tango.iceBlockColor = "GREEN"
+                        return "GO TO PERSON"    
                 except:
                     self.turnSpeed = 6000
                     self.forwardSpeed = 6000
@@ -129,21 +103,8 @@ class MiningState(State):
                     if (pcY > faceY) and (pcX >= faceX) and (pcX <= faceX + faceW):
                         depthToPink = depth_frame.get_distance(pcX, pcY)
                         print("PERSON HOLDING PINK")
-                        if pcX >= 400:
-                            self.turnSpeed = 5100
-                        elif pcX <= 200:
-                            self.turnSpeed = 6900
-                        elif pcX < 400 and pcX > 200:
-                            self.turnSpeed = 6000
-                            if depthToPink > 1:
-                                self.forwardSpeed = 5100
-                                self.turnSpeed = 6000
-                            else:
-                                self.forwardSpeed = 6000
-                                self.turnSpeed = 6000
-                                print("FOUND PERSON")
-                                tango.iceBlockColor = "PINK"
-                                return "FIND START"       
+                        tango.iceBlockColor = "PINK"
+                        return "GO TO PERSON"     
                 except:
                     self.turnSpeed = 6000
                     self.forwardSpeed = 6000

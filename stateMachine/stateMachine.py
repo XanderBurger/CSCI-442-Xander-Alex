@@ -5,6 +5,7 @@ from stateMachine.goToStart import GoToStart
 from stateMachine.findStartingArea import FindStartingArea
 from stateMachine.startingArea import StartingArea
 from stateMachine.finish import Finish
+from stateMachine.goToPerson import GoToPerson
 
 class StateMachine:
     def __init__(self, tango, startingState) -> None:
@@ -16,7 +17,8 @@ class StateMachine:
             "FIND START": FindStartingArea(),
             "GO TO START": GoToStart(),
             "STARTING AREA": StartingArea(),
-            "FINISH": Finish()
+            "FINISH": Finish(),
+            "GO TO PERSON": GoToPerson()
         }
         self.currentState = self.states[startingState]
 
