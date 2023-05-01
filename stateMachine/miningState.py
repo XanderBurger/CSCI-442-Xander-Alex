@@ -62,7 +62,6 @@ class MiningState(State):
                 try:
                     if (ycY > faceY) and (ycX >= faceX) and (ycX <= faceX + faceW):
                         depthToYellow = depth_frame.get_distance(ycX, ycY)
-                        tango.iceBlockColor = "YELLOW"
                         print("PERSON HOLDING YELLOW")
                         if ycX >= 400:
                             self.turnSpeed = 5100
@@ -77,6 +76,7 @@ class MiningState(State):
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("FOUND PERSON")
+                                tango.iceBlockColor = "YELLOW"
                                 return "FIND START"       
                 except:
                     self.turnSpeed = 6000
@@ -94,7 +94,6 @@ class MiningState(State):
                 try:
                     if (gcY > faceY) and (gcX >= faceX) and (gcX <= faceX + faceW):
                         depthToGreen = depth_frame.get_distance(gcX, gcY)
-                        tango.iceBlockColor = "GREEN"
                         print("PERSON HOLDING GREEN")
                         if gcX >= 400:
                             self.turnSpeed = 5100
@@ -109,6 +108,7 @@ class MiningState(State):
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("FOUND PERSON")
+                                tango.iceBlockColor = "GREEN"
                                 return "FIND START"       
                 except:
                     self.turnSpeed = 6000
@@ -126,7 +126,6 @@ class MiningState(State):
                 try:
                     if (pcY > faceY) and (pcX >= faceX) and (pcX <= faceX + faceW):
                         depthToPink = depth_frame.get_distance(pcX, pcY)
-                        tango.iceBlockColor = "PINK"
                         print("PERSON HOLDING PINK")
                         if pcX >= 400:
                             self.turnSpeed = 5100
@@ -141,6 +140,7 @@ class MiningState(State):
                                 self.forwardSpeed = 6000
                                 self.turnSpeed = 6000
                                 print("FOUND PERSON")
+                                tango.iceBlockColor = "PINK"
                                 return "FIND START"       
                 except:
                     self.turnSpeed = 6000
