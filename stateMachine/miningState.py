@@ -8,6 +8,8 @@ class MiningState(State):
         super().__init__()
 
     def enterState(self, tango):
+        time.sleep(0.5)
+        self.turnSpeed = 5100
         print("IN MINE")
 
 
