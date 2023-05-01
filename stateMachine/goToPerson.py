@@ -32,8 +32,10 @@ class GoToPerson(State):
         else:
             print("NO ICE BLOCK COLOR")
 
-        if colorContours:
+        try:
             cv2.drawContours(color_frame, colorContours, -1, (255,255,0), 2)
+        except:
+            print("no contours")
 
         if len(colorContours) > 0:
             cMax = max(colorContours, key=cv2.contourArea)
