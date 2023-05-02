@@ -8,7 +8,7 @@ class GoToPerson(State):
         super().__init__()
 
     def enterState(self, tango):
-        pass
+        self.forwardSpeed = 5100
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
@@ -45,8 +45,6 @@ class GoToPerson(State):
                         self.turnSpeed = 5100
                     elif cX <= 200:
                         self.turnSpeed = 6900
-                    elif cX < 400 and cX > 200:
-                        self.turnSpeed = 6000
                     elif cX < 400 and cX > 200:
                         self.turnSpeed = 6000
                         self.forwardSpeed = 5100
