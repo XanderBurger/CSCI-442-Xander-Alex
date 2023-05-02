@@ -47,10 +47,8 @@ class StartingArea(State):
                     elif cX < 400 and cX > 200:
                         self.turnSpeed = 6000
                         self.forwardSpeed = 5100
-                    elif cY > 460:
-                        self.forwardSpeed = 5100
-                    else:
-                        return "FINISH"
+                        if cY > 460:
+                            return "FINISH"
         except:
             self.turnSpeed = 6900
             print("no contours")

@@ -68,7 +68,6 @@ class MiningState(State):
                         tango.iceBlockColor = "YELLOW"
                         return "GO TO PERSON"
                 except:
-                    self.turnSpeed = 6000
                     self.forwardSpeed = 6000
                     print("no faces")
 
@@ -87,7 +86,6 @@ class MiningState(State):
                         tango.iceBlockColor = "GREEN"
                         return "GO TO PERSON"    
                 except:
-                    self.turnSpeed = 6000
                     self.forwardSpeed = 6000
                     print("no faces")
                 
@@ -106,7 +104,6 @@ class MiningState(State):
                         tango.iceBlockColor = "PINK"
                         return "GO TO PERSON"     
                 except:
-                    self.turnSpeed = 6000
                     self.forwardSpeed = 6000
                     print("no faces")
                 
