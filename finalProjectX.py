@@ -24,10 +24,10 @@ if not found_rgb:
     print("The demo requires Depth camera with Color sensor")
     exit(0)
 
-config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 7)
+config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 15)
 
 if device_product_line == 'L500':
-    config.enable_stream(rs.stream.color, 960, 540, rs.format.bgr8, 7)
+    config.enable_stream(rs.stream.color, 960, 540, rs.format.bgr8, 15)
 else:
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 60)
 
