@@ -30,7 +30,8 @@ class StartingArea(State):
         else:
             print("NO ICE BLOCK COLOR")
 
-        cv2.drawContours(color_frame, colorContours, -1, (255,255,0), 2)
+        if colorContours:
+            cv2.drawContours(color_frame, colorContours, -1, (255,255,0), 2)
 
         if len(colorContours) > 0:
             cMax = max(colorContours, key=cv2.contourArea)
