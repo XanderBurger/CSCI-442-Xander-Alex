@@ -38,10 +38,11 @@ class GoToPerson(State):
                 cMax = max(colorContours, key=cv2.contourArea)
                 M = cv2.moments(cMax)
                 if M["m00"] != 0:
-                    distanceToColor = depth_frame.get_distance(cX, cY)
+                    
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
                     cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
+                    distanceToColor = depth_frame.get_distance(cX, cY)
                     if cX >= 400:
                         self.turnSpeed = 5100
                     elif cX <= 200:
