@@ -3,12 +3,15 @@ import cv2
 import numpy as np
 from maestro import Controller
 from stateMachine import stateMachine
+import time
 
 class MiningTango:
     def __init__(self, startingState) -> None:
         self.stateMachine = stateMachine.StateMachine(self, startingState)
         self.controller = Controller()
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
+
+        self.totalFames = 0
 
         self.iceBlockColor = None
         self.face_cascade = cv2.CascadeClassifier("data/haarcascades/haarcascade_frontalface_default.xml")
@@ -27,7 +30,7 @@ class MiningTango:
 
         self.blueUpper = np.array([100,255,255])
         self.blueLower = np.array([85,200,140])
-        
+    
 
     def process(self, image_frame, depth_frame):
         self.stateMachine.process(self, image_frame, depth_frame)

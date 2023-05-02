@@ -18,6 +18,10 @@ class FindMiningArea(State):
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
         self.tickMove()
 
+        turning = True
+        if tango.totalFames % 100 == 0:
+            turning = not turning
+
         try:
             for i in range(len(ids)):
                 if int(ids[i]) == 49:
@@ -37,10 +41,12 @@ class FindMiningArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
-                    self.tickMove()
+                    if turning:
+                        self.turnSpeed = 5100
+                    else:
+                        self.turnSpeed = 6000
 
         except TypeError:
-            self.tickMove()
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
