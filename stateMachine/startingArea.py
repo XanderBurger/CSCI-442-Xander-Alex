@@ -6,6 +6,7 @@ import time
 class StartingArea(State):
     def __init__(self) -> None:
         super().__init__()
+        self.turning = True
 
     def enterState(self, tango):
         tango.controller.setTarget(self.HEADTILT, 4000)
@@ -16,6 +17,10 @@ class StartingArea(State):
         hsv_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
 
         colorContours = None
+
+        if tango.totalFrames % 30 == 0:
+            self.turning = not self.turning
+
         
         print("FINDING", tango.iceBlockColor + "...")
 
@@ -50,11 +55,15 @@ class StartingArea(State):
                         if cY > 460:
                             return "FINISH"
         except:
-            self.turnSpeed = 6900
+            if self.turning:
+                self.turnSpeed = 6900
+            else:
+                self.turnSpeed = 6000
             print("no contours")
 
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
+        tango.totalFrames += 1
 
         return nextState
 
