@@ -11,6 +11,7 @@ class StartingArea(State):
     def enterState(self, tango):
         tango.controller.setTarget(self.HEADTILT, 4000)
         self.turnSpeed = 5100
+        print("in start")
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
