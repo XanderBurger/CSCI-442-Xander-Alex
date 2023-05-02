@@ -11,6 +11,7 @@ class MiningState(State):
     def enterState(self, tango):
         time.sleep(0.5)
         print("IN MINE")
+        self.forwardSpeed = 6000
 
 
     def process(self, tango, color_frame, depth_frame):
@@ -72,7 +73,6 @@ class MiningState(State):
                         tango.iceBlockColor = "YELLOW"
                         return "GO TO PERSON"
                 except:
-                    self.forwardSpeed = 6000
                     print("no faces")
 
         
@@ -90,7 +90,6 @@ class MiningState(State):
                         tango.iceBlockColor = "GREEN"
                         return "GO TO PERSON"    
                 except:
-                    self.forwardSpeed = 6000
                     print("no faces")
                 
 
@@ -108,7 +107,6 @@ class MiningState(State):
                         tango.iceBlockColor = "PINK"
                         return "GO TO PERSON"     
                 except:
-                    self.forwardSpeed = 6000
                     print("no faces")
         
         if self.turning:
