@@ -20,7 +20,7 @@ class FindMiningArea(State):
 
         
         
-        if tango.totalFrames % 1000 == 0:
+        if tango.totalFrames % 100 == 0:
             self.turning = not self.turning
 
         try:
