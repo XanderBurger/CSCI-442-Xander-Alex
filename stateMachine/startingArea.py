@@ -60,6 +60,6 @@ class StartingArea(State):
 
     
     def exitState(self, tango):
-        time.sleep(1)
+        time.sleep(1.5)
         tango.controller.setTarget(self.FORWARD, 6000)
         tango.controller.setTarget(self.HEADTILT, 6000)
