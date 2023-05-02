@@ -19,7 +19,6 @@ class FindMiningArea(State):
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
 
         
-        
         if tango.totalFrames % 30 == 0:
             self.turning = not self.turning
 
