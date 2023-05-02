@@ -6,14 +6,18 @@ import time
 class MiningState(State):
     def __init__(self) -> None:
         super().__init__()
+        self.turning = True
 
     def enterState(self, tango):
         time.sleep(0.5)
-        self.turnSpeed = 5100
         print("IN MINE")
 
 
     def process(self, tango, color_frame, depth_frame):
+
+        if tango.totalFrames % 30:
+            self.turning = not self.turning
+
         nextState = None
         hsv_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
 
@@ -106,8 +110,12 @@ class MiningState(State):
                 except:
                     self.forwardSpeed = 6000
                     print("no faces")
-                
-            
+        
+        if self.turning:
+            self.turnSpeed = 5100
+        else:
+            self.turnSpeed = 6000
+              
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
 
