@@ -30,11 +30,11 @@ class FindMiningArea(State):
                     centerX = int((box[0][0] + box[1][0]) / 2)
                     centerY = int((box[1][1] + box[3][1]) / 2)
 
-                    if centerX >= 370:
+                    if centerX >= 380:
                         self.turnSpeed = 5100
-                    elif centerX <= 270:
+                    elif centerX <= 260:
                         self.turnSpeed = 7000
-                    elif centerX < 370 and centerX > 270:
+                    elif centerX < 380 and centerX > 260:
                         self.turnSpeed = 6000
                         return "GO TO MINE"
 
