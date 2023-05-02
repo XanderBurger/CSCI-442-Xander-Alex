@@ -30,29 +30,28 @@ class StartingArea(State):
         else:
             print("NO ICE BLOCK COLOR")
 
-        if colorContours:
+        try:
             cv2.drawContours(color_frame, colorContours, -1, (255,255,0), 2)
-
-        if len(colorContours) > 0:
-            cMax = max(colorContours, key=cv2.contourArea)
-            M = cv2.moments(cMax)
-            if M["m00"] != 0:
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
-                cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
-                if cX >= 400:
-                    self.turnSpeed = 5100
-                elif cX <= 200:
-                    self.turnSpeed = 6900
-                elif cX < 400 and cX > 200:
-                    self.turnSpeed = 6000
-                
-                if cY < 460:
-                    self.forwardSpeed = 5100
-                else:
-                    return "FINISH"
-
-        
+            if len(colorContours) > 0:
+                cMax = max(colorContours, key=cv2.contourArea)
+                M = cv2.moments(cMax)
+                if M["m00"] != 0:
+                    cX = int(M["m10"] / M["m00"])
+                    cY = int(M["m01"] / M["m00"])
+                    cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
+                    if cX >= 400:
+                        self.turnSpeed = 5100
+                    elif cX <= 200:
+                        self.turnSpeed = 6900
+                    elif cX < 400 and cX > 200:
+                        self.turnSpeed = 6000
+                    if cY < 460:
+                        self.forwardSpeed = 5100
+                    else:
+                        return "FINISH"
+        except:
+            print("no contours")
+            
         return nextState
 
     
