@@ -19,6 +19,7 @@ class FindMiningArea(State):
         self.tickMove()
 
         turning = True
+        
         if tango.totalFrames % 100 == 0:
             turning = not turning
 
@@ -47,6 +48,10 @@ class FindMiningArea(State):
                         self.turnSpeed = 6000
 
         except TypeError:
+            if turning:
+                self.turnSpeed = 5100
+            else:
+                self.turnSpeed = 6000
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
