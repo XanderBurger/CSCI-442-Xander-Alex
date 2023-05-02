@@ -8,7 +8,7 @@ class GoToPerson(State):
         super().__init__()
 
     def enterState(self, tango):
-        self.forwardSpeed = 5100
+        self.forwardSpeed = 6000
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
@@ -43,8 +43,10 @@ class GoToPerson(State):
                     distanceToColor = depth_frame.get_distance(cX, cY)
                     if cX >= 400:
                         self.turnSpeed = 5100
+                        self.forwardSpeed = 6000
                     elif cX <= 200:
                         self.turnSpeed = 6900
+                        self.forwardSpeed = 6000
                     elif cX < 400 and cX > 200:
                         self.turnSpeed = 6000
                         self.forwardSpeed = 5100

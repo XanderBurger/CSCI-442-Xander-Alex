@@ -16,8 +16,8 @@ class MiningTango:
         self.iceBlockColor = None
         self.face_cascade = cv2.CascadeClassifier("data/haarcascades/haarcascade_frontalface_default.xml")
         
-        self.yellowUpper = np.array([40,240,255])
-        self.yellowLower = np.array([30,150,140])
+        self.yellowUpper = np.array([40,255,255])
+        self.yellowLower = np.array([30,140,130])
 
         self.greenUpper = np.array([69,200,255])
         self.greenLower = np.array([53,120,170])
