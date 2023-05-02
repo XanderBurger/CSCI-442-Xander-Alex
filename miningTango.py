@@ -19,17 +19,17 @@ class MiningTango:
         self.yellowUpper = np.array([40,240,255])
         self.yellowLower = np.array([30,150,140])
 
-        self.greenUpper = np.array([69,200,255])
+        self.greenUpper = np.array([75,230,255])
         self.greenLower = np.array([53,120,170])
 
         self.pinkUpper = np.array([175,230,255])
-        self.pinkLower = np.array([160,130,170])
+        self.pinkLower = np.array([160,120,170])
 
-        self.orangeUpper = np.array([20,220,255])
+        self.orangeUpper = np.array([25,220,255])
         self.orangeLower = np.array([10,130,200])
 
         self.blueUpper = np.array([100,255,255])
-        self.blueLower = np.array([85,190,135])
+        self.blueLower = np.array([85,160,135])
     
 
     def process(self, image_frame, depth_frame):
