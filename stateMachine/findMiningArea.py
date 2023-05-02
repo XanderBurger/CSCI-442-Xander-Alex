@@ -16,7 +16,7 @@ class FindMiningArea(State):
         mat30 = np.full(color_frame.shape, 30, dtype=np.uint8)
         color_frame = cv2.add(color_frame, mat30)
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
-        self.turnSpeed = 5100
+        self.tickMove()
 
         try:
             for i in range(len(ids)):
@@ -37,10 +37,10 @@ class FindMiningArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
-                    self.turnSpeed = 5100
+                    self.tickMove()
 
         except TypeError:
-            self.turnSpeed = 5100
+            self.tickMove()
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         

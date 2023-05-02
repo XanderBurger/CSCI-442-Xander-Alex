@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 
 class State:
     def __init__(self) -> None:
@@ -19,3 +20,9 @@ class State:
     
     def exitState(self, tango):
         pass
+
+    def tickMove(self):
+        time.sleep(2)
+        self.turnSpeed = 5100
+        time.sleep(2)
+        self.turnSpeed = 6000
