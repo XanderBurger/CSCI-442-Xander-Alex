@@ -67,7 +67,7 @@ class MiningState(State):
                 cv2.circle(color_frame, (ycX, ycY), 5, (255,255,0), 2)
                 try:
                     if (ycY > faceY) and (ycX >= faceX) and (ycX <= faceX + faceW):
-                        depthToYellow = depth_frame.get_distance(ycX, ycY)
+                        # depthToYellow = depth_frame.get_distance(ycX, ycY)
                         print("PERSON HOLDING YELLOW")
                         tango.iceBlockColor = "YELLOW"
                         return "GO TO PERSON"
@@ -85,7 +85,7 @@ class MiningState(State):
                 cv2.circle(color_frame, (gcX,gcY), 5, (255,255,0), 2)
                 try:
                     if (gcY > faceY) and (gcX >= faceX) and (gcX <= faceX + faceW):
-                        depthToGreen = depth_frame.get_distance(gcX, gcY)
+                        # depthToGreen = depth_frame.get_distance(gcX, gcY)
                         print("PERSON HOLDING GREEN")
                         tango.iceBlockColor = "GREEN"
                         return "GO TO PERSON"    
@@ -103,7 +103,7 @@ class MiningState(State):
                 cv2.circle(color_frame, (pcX, pcY), 5, (255,255,0), 2)
                 try:
                     if (pcY > faceY) and (pcX >= faceX) and (pcX <= faceX + faceW):
-                        depthToPink = depth_frame.get_distance(pcX, pcY)
+                        # depthToPink = depth_frame.get_distance(pcX, pcY)
                         print("PERSON HOLDING PINK")
                         tango.iceBlockColor = "PINK"
                         return "GO TO PERSON"     
