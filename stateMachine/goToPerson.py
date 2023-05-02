@@ -21,13 +21,13 @@ class GoToPerson(State):
 
         if tango.iceBlockColor == "YELLOW":
             yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
-            colorContours, colorContours = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            colorContours, hierarchy  = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         elif tango.iceBlockColor == "PINK":
             pinkBinary = cv2.inRange(hsv_frame, tango.pinkLower, tango.pinkUpper)
-            colorContours, colorContours = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            colorContours, hierarchy  = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         elif tango.iceBlockColor == "GREEN":
             greenBinary = cv2.inRange(hsv_frame, tango.greenLower, tango.greenUpper)
-            colorContours, colorContours = cv2.findContours(greenBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            colorContours, hierarchy  = cv2.findContours(greenBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         else:
             print("NO ICE BLOCK COLOR")
 
@@ -38,7 +38,6 @@ class GoToPerson(State):
                 cMax = max(colorContours, key=cv2.contourArea)
                 M = cv2.moments(cMax)
                 if M["m00"] != 0:
-                    
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
                     cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
