@@ -6,7 +6,7 @@ class FindStartingArea(State):
     
     def __init__(self) -> None:
         super().__init__()
-
+        self.turning = True
 
     def enterState(self, tango):
         tango.controller.setTarget(self.FORWARD, 6000)
@@ -16,6 +16,9 @@ class FindStartingArea(State):
         nextState = None
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
         self.turnSpeed = 5150
+
+        if tango.totalFrames % 30 == 0:
+            self.turning = not self.turning
 
         try:
             for i in range(len(ids)):
@@ -36,15 +39,22 @@ class FindStartingArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
-                    self.turnSpeed = 5050
+                    if self.turning:
+                        self.turnSpeed = 5100
+                    else:
+                        self.turnSpeed = 6000
         except TypeError:
-            self.turnSpeed = 5100
+            if self.turning:
+                self.turnSpeed = 5100
+            else:
+                self.turnSpeed = 6000
+
             self.forwardSpeed = 6000
             print("NO MARKER FOUND")
         
         tango.controller.setTarget(self.TURN, self.turnSpeed)
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
-        
+        tango.totalFrames += 1
         return nextState
     
     def exitState(self, tango):
