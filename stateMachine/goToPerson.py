@@ -54,7 +54,7 @@ class GoToPerson(State):
                             return "FIND START"
         except:
             print("no contours")
-
+            self.forwardSpeed = 6000
        
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
