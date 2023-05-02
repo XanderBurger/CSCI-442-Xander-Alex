@@ -52,6 +52,7 @@ class FindMiningArea(State):
         
         tango.controller.setTarget(self.TURN, self.turnSpeed)
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        tango.totalFame += 1
         
         return nextState
     
