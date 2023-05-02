@@ -6,6 +6,7 @@ class FindMiningArea(State):
     
     def __init__(self) -> None:
         super().__init__()
+        self.turning = True
 
 
     def enterState(self, tango):
@@ -17,10 +18,10 @@ class FindMiningArea(State):
         color_frame = cv2.add(color_frame, mat30)
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
 
-        turning = True
+        
         
         if tango.totalFrames % 1000 == 0:
-            turning = not turning
+            self.turning = not self.turning
 
         try:
             for i in range(len(ids)):
@@ -41,13 +42,13 @@ class FindMiningArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
-                    if turning:
+                    if self.turning:
                         self.turnSpeed = 5100
                     else:
                         self.turnSpeed = 6000
 
         except TypeError:
-            if turning:
+            if self.turning:
                 self.turnSpeed = 5100
             else:
                 self.turnSpeed = 6000
