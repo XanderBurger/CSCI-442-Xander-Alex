@@ -56,6 +56,8 @@ class GoToPerson(State):
             print("no contours")
 
        
+        tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        tango.controller.setTarget(self.TURN, self.turnSpeed)
 
         return nextState
 
