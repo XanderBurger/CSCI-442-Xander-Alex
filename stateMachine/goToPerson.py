@@ -48,7 +48,7 @@ class GoToPerson(State):
                         self.turnSpeed = 6900
                     elif cX < 400 and cX > 200:
                         self.turnSpeed = 6000
-                    if distanceToColor > 1:
+                    if distanceToColor > 0.5:
                         self.forwardSpeed = 5100
                     else:
                         return "FIND START"

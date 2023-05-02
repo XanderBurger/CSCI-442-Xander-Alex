@@ -15,7 +15,7 @@ class MiningState(State):
 
     def process(self, tango, color_frame, depth_frame):
 
-        if tango.totalFrames % 30 == 0:
+        if tango.totalFrames % 20 == 0:
             self.turning = not self.turning
 
         nextState = None
@@ -118,6 +118,7 @@ class MiningState(State):
               
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
         tango.controller.setTarget(self.TURN, self.turnSpeed)
+        tango.totalFrames += 1
 
         return nextState
 
