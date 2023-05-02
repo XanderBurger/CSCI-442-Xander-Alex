@@ -37,7 +37,7 @@ class FindMiningArea(State):
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)
                 else:
-                    self.turnSpeed = 5150
+                    self.turnSpeed = 6900
 
         except TypeError:
             self.turnSpeed = 6900
