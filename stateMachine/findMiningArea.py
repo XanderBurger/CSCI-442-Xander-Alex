@@ -19,7 +19,7 @@ class FindMiningArea(State):
         corners, ids, rejected = cv2.aruco.detectMarkers(color_frame, self.arucoDict)
 
         
-        if tango.totalFrames % 20 == 0:
+        if tango.totalFrames % 30 == 0:
             self.turning = not self.turning
 
         try:
@@ -30,11 +30,11 @@ class FindMiningArea(State):
                     centerX = int((box[0][0] + box[1][0]) / 2)
                     centerY = int((box[1][1] + box[3][1]) / 2)
 
-                    if centerX >= 350:
+                    if centerX >= 370:
                         self.turnSpeed = 5100
-                    elif centerX <= 250:
+                    elif centerX <= 270:
                         self.turnSpeed = 7000
-                    elif centerX < 350 and centerX > 250:
+                    elif centerX < 370 and centerX > 270:
                         self.turnSpeed = 6000
                         return "GO TO MINE"
 
