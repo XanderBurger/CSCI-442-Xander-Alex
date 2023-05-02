@@ -27,13 +27,13 @@ class FindStartingArea(State):
                     centerX = int((box[0][0] + box[1][0]) / 2)
                     centerY = int((box[1][1] + box[3][1]) / 2)
 
-                    if centerX >= 350:
+                    if centerX >= 400:
                         self.turnSpeed = 5100
-                    elif centerX <= 250:
+                    elif centerX <= 200:
                         self.turnSpeed = 6900
-                    elif centerX < 350 and centerX > 250:
+                    elif centerX < 400 and centerX > 200:
                         self.turnSpeed = 6000
-                        nextState = "GO TO START"
+                        return "GO TO START"
                         
                     cv2.circle(color_frame, (centerX, centerY), 5, (255, 255, 0), 2)
                     cv2.aruco.drawDetectedMarkers(color_frame, corners)

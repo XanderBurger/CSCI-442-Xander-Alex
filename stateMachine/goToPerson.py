@@ -8,8 +8,7 @@ class GoToPerson(State):
         super().__init__()
 
     def enterState(self, tango):
-        tango.controller.setTarget(self.HEADTILT, 5000)
-        tango.controller.setTarget(self.FORWARD, 5000)
+        pass
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
