@@ -29,11 +29,11 @@ class FindStartingArea(State):
                     centerX = int((box[0][0] + box[1][0]) / 2)
                     centerY = int((box[1][1] + box[3][1]) / 2)
 
-                    if centerX >= 400:
+                    if centerX >= 350:
                         self.turnSpeed = 5100
-                    elif centerX <= 200:
+                    elif centerX <= 250:
                         self.turnSpeed = 6900
-                    elif centerX < 400 and centerX > 200:
+                    elif centerX < 350 and centerX > 250:
                         self.turnSpeed = 6000
                         return "GO TO START"
                         
