@@ -20,13 +20,13 @@ class StartingArea(State):
 
         if tango.iceBlockColor == "YELLOW":
             yellowBinary = cv2.inRange(hsv_frame, tango.yellowLower, tango.yellowUpper)
-            colorContours, colorContours = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            colorContours,  hierarchy = cv2.findContours(yellowBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         elif tango.iceBlockColor == "PINK":
             pinkBinary = cv2.inRange(hsv_frame, tango.pinkLower, tango.pinkUpper)
-            colorContours, colorContours = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            colorContours, hierarchy  = cv2.findContours(pinkBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         elif tango.iceBlockColor == "GREEN":
             greenBinary = cv2.inRange(hsv_frame, tango.greenLower, tango.greenUpper)
-            colorContours, colorContours = cv2.findContours(greenBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            colorContours, hierarchy  = cv2.findContours(greenBinary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         else:
             print("NO ICE BLOCK COLOR")
 
