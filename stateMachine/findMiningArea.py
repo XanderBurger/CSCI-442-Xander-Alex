@@ -19,7 +19,7 @@ class FindMiningArea(State):
         self.tickMove()
 
         turning = True
-        if tango.totalFames % 100 == 0:
+        if tango.totalFrames % 100 == 0:
             turning = not turning
 
         try:
@@ -52,7 +52,7 @@ class FindMiningArea(State):
         
         tango.controller.setTarget(self.TURN, self.turnSpeed)
         tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
-        tango.totalFame += 1
+        tango.totalFrames += 1
         
         return nextState
     

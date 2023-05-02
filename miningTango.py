@@ -11,7 +11,7 @@ class MiningTango:
         self.controller = Controller()
         self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
-        self.totalFames = 0
+        self.totalFrames = 0
 
         self.iceBlockColor = None
         self.face_cascade = cv2.CascadeClassifier("data/haarcascades/haarcascade_frontalface_default.xml")
