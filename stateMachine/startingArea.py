@@ -9,6 +9,7 @@ class StartingArea(State):
 
     def enterState(self, tango):
         tango.controller.setTarget(self.HEADTILT, 4000)
+        self.turnSpeed = 6900
 
     def process(self, tango, color_frame, depth_frame):
         nextState = None
@@ -50,7 +51,11 @@ class StartingArea(State):
                     else:
                         return "FINISH"
         except:
+            self.turnSpeed = 6900
             print("no contours")
+
+        tango.controller.setTarget(self.FORWARD, self.forwardSpeed)
+        tango.controller.setTarget(self.TURN, self.turnSpeed)
 
         return nextState
 
