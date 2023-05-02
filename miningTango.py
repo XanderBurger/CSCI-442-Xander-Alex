@@ -29,7 +29,7 @@ class MiningTango:
         self.orangeLower = np.array([10,130,200])
 
         self.blueUpper = np.array([100,255,255])
-        self.blueLower = np.array([85,180,130])
+        self.blueLower = np.array([85,190,135])
     
 
     def process(self, image_frame, depth_frame):
