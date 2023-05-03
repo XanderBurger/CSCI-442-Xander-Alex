@@ -45,11 +45,11 @@ class StartingArea(State):
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
                     cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
-                    if cX >= 400:
+                    if cX >= 390:
                         self.turnSpeed = 5100
-                    elif cX <= 200:
+                    elif cX <= 240:
                         self.turnSpeed = 6900
-                    elif cX < 400 and cX > 200:
+                    elif cX < 390 and cX > 240:
                         self.turnSpeed = 6000
                         self.forwardSpeed = 5100
                         if cY > 460:
