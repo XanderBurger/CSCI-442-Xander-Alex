@@ -41,16 +41,16 @@ class GoToPerson(State):
                     cY = int(M["m01"] / M["m00"])
                     cv2.circle(color_frame, (cX, cY), 5, (255,255,0), 2)
                     distanceToColor = depth_frame.get_distance(cX, cY)
-                    if cX >= 390:
+                    if cX >= 400:
                         self.turnSpeed = 5100
                         self.forwardSpeed = 6000
-                    elif cX <= 240:
+                    elif cX <= 230:
                         self.turnSpeed = 6900
                         self.forwardSpeed = 6000
-                    elif cX < 390 and cX > 240:
+                    elif cX < 400 and cX > 230:
                         self.turnSpeed = 6000
                         self.forwardSpeed = 5100
-                        if distanceToColor < 0.7:
+                        if distanceToColor < 1:
                             return "FIND START"
         except:
             print("no contours")
