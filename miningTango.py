@@ -28,7 +28,7 @@ class MiningTango:
         self.orangeUpper = np.array([29,220,255])
         self.orangeLower = np.array([20,50,200])
 
-        self.blueUpper = np.array([95,240,240])
+        self.blueUpper = np.array([100,255,240])
         self.blueLower = np.array([85,170,135])
     
 
