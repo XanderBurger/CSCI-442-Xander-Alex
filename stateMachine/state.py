@@ -20,9 +20,3 @@ class State:
     
     def exitState(self, tango):
         pass
-
-    def tickMove(self):
-        time.sleep(2)
-        self.turnSpeed = 5100
-        time.sleep(2)
-        self.turnSpeed = 6000
