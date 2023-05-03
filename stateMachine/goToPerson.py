@@ -50,8 +50,10 @@ class GoToPerson(State):
                     elif cX < 400 and cX > 200:
                         self.turnSpeed = 6000
                         self.forwardSpeed = 5100
+                        if distanceToColor <= 0:
+                            return None
                         if distanceToColor < 0.5:
-                                return "FIND START"
+                            return "FIND START"
         except:
             print("no contours")
             self.forwardSpeed = 6000

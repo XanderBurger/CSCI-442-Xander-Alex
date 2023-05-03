@@ -33,7 +33,6 @@ class Test(State):
         cv2.drawContours(color_frame, greenContours, -1, (0,255,0), 2)
         cv2.drawContours(color_frame, pinkContours, -1, (50, 0 ,255), 2)
 
-
         return nextState
     
     def exitState(self, tango):
